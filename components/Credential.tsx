@@ -24,7 +24,7 @@ export default function Credential({
     <div className="flex flex-col items-center rounded-2xl border border-line bg-card p-5 text-center transition-transform hover:-translate-y-1">
       <span className="grid size-14 place-items-center overflow-hidden rounded-xl border border-line bg-ink">
         {hasLogo ? (
-          <Image src={logo} alt={`${full} logo`} width={56} height={56} className="size-full object-contain p-1.5" />
+          <Image src={logo} alt={`${full} logo`} width={56} height={56} className="size-full object-cover" />
         ) : (
           <span className="font-display text-base font-extrabold text-accent-ink">{name}</span>
         )}
