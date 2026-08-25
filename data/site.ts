@@ -18,7 +18,7 @@ export const profile = {
   githubHandle: "github.com/soutAhmedTayseer",
   linkedin: "https://www.linkedin.com/in/ahmed-tayseer-b734a7241/",
   cv: "/Ahmed_Tayseer_Fawzy_CV.pdf",
-  site: "https://ahmed-tayseer.vercel.app",
+  site: "https://www.ahmedtayseer.com",
 };
 
 export const pillars = [
