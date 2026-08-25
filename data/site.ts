@@ -273,7 +273,10 @@ export const projects: Project[] = [
     year: "2026",
     highlights: ["Two apps, one shared API and data model", "Role-separated flows for staff and parents"],
     stack: ["Flutter", "Dart", "REST API"],
-    repo: "https://github.com/soutAhmedTayseer/Nursery-Management-System",
+    repos: [
+      { label: "Management", url: "https://github.com/soutAhmedTayseer/Nursery-Management-System" },
+      { label: "Parents", url: "https://github.com/soutAhmedTayseer/Nursery-Parents-System" },
+    ],
     icon: "/icons/nursery.png",
     platform: "Flutter",
   },
@@ -571,7 +574,7 @@ export const education = [
     title: "9-Month Diploma — Mobile Applications Development (Native)",
     org: "Information Technology Institute (ITI)",
     logo: "/logos/orgs/iti.png",
-    period: "Oct 2025 — Present",
+    period: "Oct 2025 — Aug 2026",
     note: "Intensive training under the Ministry of Telecommunications and Information Technology, specialising in native and cross-platform mobile architectures.",
   },
   {
