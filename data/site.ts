@@ -23,16 +23,16 @@ export const profile = {
 
 export const pillars = [
   {
-    title: "Ships on both stores",
-    body: "Native Android in Kotlin and Compose, or one Flutter codebase when the budget wants Android and iOS at once.",
+    title: "Android",
+    body: "Native apps in Kotlin and Jetpack Compose — modular Gradle, Clean Architecture, and voice/chat AI or payment and map integrations built in from the start, not bolted on.",
   },
   {
-    title: "I design the answer, then build it",
-    body: "I have shipped custom design systems, voice and chat AI assistants, payment and map integrations, and offline sync that survives a dead connection. Bring a rough idea and I will shape the flow, pick the stack, and hand back a working app — not a list of tickets.",
+    title: "Flutter",
+    body: "One Dart codebase shipping to both stores, with Cubit/Bloc state management, Firebase or a custom backend, and offline-first sync that survives a dead connection.",
   },
   {
-    title: "Built to be handed over",
-    body: "Modular Gradle, Clean Architecture and tests on the parts that break, so the next developer reads the code instead of guessing.",
+    title: "iOS",
+    body: "Swift and SwiftUI apps with MVP architecture, Alamofire networking and CoreData persistence — kept in sync with a shared Kotlin Multiplatform core when the project calls for it.",
   },
 ];
 

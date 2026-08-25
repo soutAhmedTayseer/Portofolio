@@ -232,7 +232,7 @@ export default function Home() {
               </div>
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 {pillars.map((c, i) => {
-                  const tint = [brands.android.color, brands.flutter.color, brands.kotlin.color][i] ?? brands.android.color;
+                  const tint = [brands.android.color, brands.flutter.color, brands.swift.color][i] ?? brands.android.color;
                   return (
                     <div
                       key={c.title}
