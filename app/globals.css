@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/*
+  Palette: the toolchain Ahmed actually works in.
+  Flutter sky blue leads, Android green answers, Kotlin magenta→orange for heat,
+  all on the deep navy of a dark Android Studio window.
+*/
+:root {
+  --ink: #080b11;
+  --surface: #0e131b;
+  --card: #121926;
+  --line: #202b3b;
+  --muted: #8b9bb4;
+  --fg: #e9eff7;
+  --accent: #4ea8ff; /* steel blue — the primary voice */
+  --accent-ink: #4ea8ff;
+  --accent-contrast: #05090f;
+  --green: #3ddc84; /* Android */
+  --hot: #ff8a3d; /* signal amber, replaces the old magenta */
+  --warm: #f8981d;
+  --steel: #64748b;
+  --shadow: 0 25px 45px rgba(2, 5, 12, 0.8);
+  --grid: rgba(139, 155, 180, 0.06);
+  --blob-a: rgba(78, 168, 255, 0.2);
+  --blob-b: rgba(61, 220, 132, 0.12);
+  --blob-c: rgba(255, 138, 61, 0.12);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --ink: #eef2f7;
+  --surface: #ffffff;
+  --card: #ffffff;
+  --line: #d5dde8;
+  --muted: #56637a;
+  --fg: #0b1220;
+  --accent: #4ea8ff;
+  --accent-ink: #1263c4;
+  --accent-contrast: #05090f;
+  --green: #12a05c;
+  --hot: #d2620f;
+  --warm: #b8700d;
+  --steel: #64748b;
+  --shadow: 0 20px 40px rgba(15, 28, 54, 0.14);
+  --grid: rgba(18, 99, 196, 0.06);
+  --blob-a: rgba(78, 168, 255, 0.26);
+  --blob-b: rgba(18, 160, 92, 0.16);
+  --blob-c: rgba(210, 98, 15, 0.12);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]):not([data-theme="light"]) {
+    --ink: #eef2f7;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --line: #d5dde8;
+    --muted: #56637a;
+    --fg: #0b1220;
+    --accent-ink: #1263c4;
+    --green: #12a05c;
+    --hot: #d2620f;
+    --warm: #b8700d;
+    --shadow: 0 20px 40px rgba(15, 28, 54, 0.14);
+    --grid: rgba(18, 99, 196, 0.06);
+    --blob-a: rgba(78, 168, 255, 0.26);
+    --blob-b: rgba(18, 160, 92, 0.16);
+    --blob-c: rgba(210, 98, 15, 0.12);
+    color-scheme: light;
+  }
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-fg: var(--fg);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-green: var(--green);
+  --color-hot: var(--hot);
+  --color-steel: var(--steel);
+  --color-warm: var(--warm);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-body), sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --font-pixel: var(--font-pixel), var(--font-mono), monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  overflow-x: clip;
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.label {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+.chip {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.pixel {
+  font-family: var(--font-pixel), monospace;
+}
+
+/* Kotlin's own gradient, used only on hero emphasis */
+.grad-text {
+  background: linear-gradient(96deg, var(--accent) 0%, #7fd4ff 35%, var(--green) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+:where(a, button, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+.device-shadow {
+  box-shadow: var(--shadow);
+}
+
+/* ---------- dynamic background ---------- */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora span {
+  position: absolute;
+  display: block;
+  width: 46vw;
+  height: 46vw;
+  min-width: 320px;
+  min-height: 320px;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+}
+
+.aurora span:nth-child(1) {
+  background: var(--blob-a);
+  top: -12%;
+  left: -8%;
+  animation: drift-a 22s ease-in-out infinite;
+}
+.aurora span:nth-child(2) {
+  background: var(--blob-b);
+  top: 30%;
+  right: -12%;
+  animation: drift-b 27s ease-in-out infinite;
+}
+.aurora span:nth-child(3) {
+  background: var(--blob-c);
+  bottom: -18%;
+  left: 25%;
+  animation: drift-c 31s ease-in-out infinite;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8vw, 6vh, 0) scale(1.12); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50% { transform: translate3d(-7vw, -5vh, 0) scale(0.92); }
+}
+@keyframes drift-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
+  50% { transform: translate3d(5vw, -7vh, 0) scale(1.15); }
+}
+
+.grid-lines {
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(closest-side, black, transparent);
+}
+
+/* ---------- marquee ---------- */
+.marquee {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.float-slow { animation: float-y 7s ease-in-out infinite; }
+.float-mid { animation: float-y 8s ease-in-out infinite 0.6s; }
+.float-slower { animation: float-y 9s ease-in-out infinite; }
+
+/* jetpack flame under the mascot */
+@keyframes flame {
+  0%, 100% { transform: scaleY(0.7); opacity: 0.7; }
+  50% { transform: scaleY(1.25); opacity: 1; }
+}
+.flame { animation: flame 0.28s ease-in-out infinite; transform-origin: top center; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .float-slow,
+  .float-mid,
+  .float-slower,
+  .marquee,
+  .flame,
+  .aurora span {
+    animation: none;
+  }
+}
