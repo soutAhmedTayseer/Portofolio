@@ -54,6 +54,7 @@ export type Project = {
   year: string;
   stack: string[];
   repo?: string;
+  repos?: { label: string; url: string }[];
   platform: "Android" | "Flutter" | "Kotlin Multiplatform" | "iOS" | "Backend";
   highlights: string[];
   screens?: Screen[];
@@ -281,17 +282,53 @@ export const projects: Project[] = [
   },
   {
     slug: "lingualeap",
-    title: "LinguaLeap & QuizDeck",
-    subtitle: "Language Learning & Flashcard Quiz Apps",
-    tagline: "Two Flutter deliverables shipped during the CodeAlpha internship",
+    title: "LinguaLeap",
+    subtitle: "Language Learning App",
+    tagline: "Bilingual Flutter app shipped during the CodeAlpha internship",
     description:
-      "A language-learning platform with progressive lessons, XP tracking and full Arabic/English localisation using Cubit, plus a flashcard quiz app with auto-generated API quizzes, history tracking and debounced search.",
-    role: "Internship deliverables",
+      "A language-learning platform with progressive lessons, XP tracking and full Arabic/English localisation using Cubit for predictable state management across lesson flows.",
+    role: "Internship deliverable",
     year: "CodeAlpha · 2024",
-    highlights: ["XP tracking and progressive lessons", "Arabic/English localisation with Cubit", "Debounced search and quiz history"],
+    highlights: ["XP tracking and progressive lessons", "Arabic/English localisation with Cubit", "Cubit-driven lesson flow state management"],
     stack: ["Flutter", "Dart", "Cubit", "REST APIs"],
     repo: "https://github.com/soutAhmedTayseer/CodeAlpha_LanguageLearningApp",
     platform: "Flutter",
+  },
+  {
+    slug: "quizdeck",
+    title: "QuizDeck",
+    subtitle: "Flashcard Quiz App",
+    tagline: "Dynamic, API-driven flashcard quizzes shipped during the CodeAlpha internship",
+    description:
+      "A flashcard quiz app that auto-generates quizzes dynamically from an external API instead of static question banks, with quiz history tracking and debounced search for fast, lag-free flashcard lookup.",
+    role: "Internship deliverable",
+    year: "CodeAlpha · 2024",
+    highlights: ["Auto-generated quizzes from a live API", "Quiz history tracking for progress review", "Debounced search for flashcard lookup"],
+    stack: ["Flutter", "Dart", "Cubit", "REST APIs"],
+    repo: "https://github.com/soutAhmedTayseer/CodeAlpha_FlashcardQuizApp",
+    platform: "Flutter",
+  },
+  {
+    slug: "xo",
+    title: "XO",
+    subtitle: "Real-Time Multiplayer Tic-Tac-Toe",
+    tagline: "Thread-per-client server with a Minimax \"unbeatable\" AI opponent",
+    description:
+      "Real-time multiplayer Tic-Tac-Toe built in a 4-person team: a thread-per-client server architecture handling live matchmaking and SHA-256-secured accounts over Apache Derby storage, plus a Minimax-powered AI opponent that evaluates every possible move.",
+    role: "Team of 4",
+    year: "ITI · 2026",
+    highlights: [
+      "Thread-per-client server for live matchmaking",
+      "SHA-256-secured accounts over Apache Derby storage",
+      "Minimax-powered \"unbeatable\" AI opponent",
+      "Full JSON-based match replays for move-by-move review",
+    ],
+    stack: ["JavaFX", "Multithreading", "Minimax AI", "Apache Derby"],
+    repos: [
+      { label: "Client", url: "https://github.com/soutAhmedTayseer/Client_XO_Game" },
+      { label: "Server", url: "https://github.com/soutAhmedTayseer/Server_XO_Game" },
+    ],
+    platform: "Backend",
   },
   {
     slug: "locateme",
@@ -387,7 +424,15 @@ export const caseStudy: Record<
     videos: [{ title: "App Walkthrough", url: "" }],
   },
   lingualeap: {
-    videos: [{ title: "LinguaLeap", url: "" }, { title: "QuizDeck", url: "" }],
+    videos: [{ title: "LinguaLeap", url: "" }],
+  },
+  quizdeck: {
+    videos: [{ title: "QuizDeck", url: "" }],
+  },
+  xo: {
+    architecture:
+      "A thread-per-client Java server handles matchmaking and game state, with accounts secured via SHA-256 hashing over Apache Derby storage. The client speaks to it over sockets and falls back to a local Minimax engine for single-player matches, with every move logged to JSON for full match replay.",
+    videos: [{ title: "App Walkthrough", url: "" }],
   },
   locateme: {
     videos: [{ title: "App Walkthrough", url: "" }],

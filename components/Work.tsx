@@ -56,7 +56,7 @@ export default function Work({ projects }: { projects: Project[] }) {
             </div>
 
             <div className="flex items-center justify-between border-t border-line pt-5">
-              {p.repo ? (
+              {p.repo || p.repos?.[0] ? (
                 <span
                   role="link"
                   tabIndex={0}
@@ -64,13 +64,13 @@ export default function Work({ projects }: { projects: Project[] }) {
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    window.open(p.repo, "_blank", "noopener,noreferrer");
+                    window.open(p.repo ?? p.repos![0].url, "_blank", "noopener,noreferrer");
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
                       e.stopPropagation();
-                      window.open(p.repo, "_blank", "noopener,noreferrer");
+                      window.open(p.repo ?? p.repos![0].url, "_blank", "noopener,noreferrer");
                     }
                   }}
                   className="rounded-lg p-2 text-muted transition-colors hover:bg-ink hover:text-accent-ink"

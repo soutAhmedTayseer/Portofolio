@@ -70,6 +70,17 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   GitHub ↗
                 </a>
               )}
+              {project.repos?.map((r) => (
+                <a
+                  key={r.url}
+                  href={r.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-xl border border-line px-5 py-3 text-[13px] font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
+                >
+                  {r.label} ↗
+                </a>
+              ))}
               <a
                 href={profile.cv}
                 download
