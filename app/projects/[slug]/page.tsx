@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DemoViewport from "@/components/DemoViewport";
@@ -50,8 +51,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <div className="mb-12 rounded-3xl border border-line bg-card p-8 md:p-12">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div className="flex items-center gap-5">
-              <span className="grid size-20 place-items-center rounded-2xl border border-line bg-ink text-xl font-bold text-accent-ink">
-                {project.title.slice(0, 2).toUpperCase()}
+              <span className="size-20 overflow-hidden rounded-2xl border border-line bg-ink">
+                <Image src={project.icon} alt={`${project.title} icon`} width={80} height={80} className="size-full object-cover" />
               </span>
               <div>
                 <h1 className="text-2xl font-black tracking-tight md:text-3xl">{project.title}</h1>

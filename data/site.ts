@@ -55,6 +55,7 @@ export type Project = {
   stack: string[];
   repo?: string;
   repos?: { label: string; url: string }[];
+  icon: string;
   platform: "Android" | "Flutter" | "Kotlin Multiplatform" | "iOS" | "Backend";
   highlights: string[];
   screens?: Screen[];
@@ -87,6 +88,7 @@ export const projects: Project[] = [
     ],
     stack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "MVVM", "Room", "MockK", "AlarmManager"],
     repo: "https://github.com/soutAhmedTayseer/Weather-Forecast-Application",
+    icon: "/icons/pixelcast.jpg",
     platform: "Android",
     screens: shots("weather", 10, "PixelCast weather app", { framed: true }),
     featured: true,
@@ -109,6 +111,7 @@ export const projects: Project[] = [
     ],
     stack: ["Flutter", "Dart", "Node.js", "TypeScript", "Drizzle ORM", "Firebase Cloud Messaging"],
     repo: "https://github.com/soutAhmedTayseer/Tawseel-Management-System",
+    icon: "/icons/tawseel.png",
     platform: "Flutter",
     featured: true,
   },
@@ -129,6 +132,7 @@ export const projects: Project[] = [
     ],
     stack: ["Kotlin", "Jetpack Compose", "Room", "Retrofit", "Riot Games API", "Coroutines"],
     repo: "https://github.com/soutAhmedTayseer/League-Of-Legends-Guide",
+    icon: "/icons/champion-codex.png",
     platform: "Android",
     screens: [
       { src: "/screens/lol/01.webp", alt: "Champion Codex — roster list", framed: true },
@@ -154,6 +158,7 @@ export const projects: Project[] = [
     ],
     stack: ["Java", "Android", "MVP", "RxJava 3", "Retrofit", "Room", "Firebase"],
     repo: "https://github.com/soutAhmedTayseer/Food_Planner",
+    icon: "/icons/preperroni.png",
     platform: "Android",
     screens: shots("food", 10, "Preperroni meal planner"),
     featured: true,
@@ -175,6 +180,7 @@ export const projects: Project[] = [
     ],
     stack: ["Kotlin Multiplatform", "Compose Multiplatform", "Ktor Client", "Kotlinx Serialization", "SwiftUI"],
     repo: "https://github.com/soutAhmedTayseer/NewsApp",
+    icon: "/icons/newsly.png",
     platform: "Kotlin Multiplatform",
     featured: true,
   },
@@ -195,6 +201,7 @@ export const projects: Project[] = [
     ],
     stack: ["Kotlin", "Jetpack Compose", "MVI", "Modularization", "Clean Architecture", "Koin"],
     repo: "https://github.com/soutAhmedTayseer/NutriScan",
+    icon: "/icons/nutriscan.png",
     platform: "Android",
   },
   {
@@ -214,6 +221,7 @@ export const projects: Project[] = [
     ],
     stack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "Hilt", "Shopify API", "Paymob", "Mapbox"],
     repo: "https://github.com/soutAhmedTayseer/WearZone",
+    icon: "/icons/wearzone.png",
     platform: "Android",
   },
   {
@@ -232,6 +240,7 @@ export const projects: Project[] = [
     ],
     stack: ["Flutter", "Dart", "WebSockets", "AI / Whisper", "Firebase"],
     repo: "https://github.com/soutAhmedTayseer/DocDesk",
+    icon: "/icons/docdesk.png",
     platform: "Flutter",
   },
   {
@@ -250,6 +259,7 @@ export const projects: Project[] = [
     ],
     stack: ["Flutter", "Dart", "Firebase", "Hive", "REST API"],
     repo: "https://github.com/soutAhmedTayseer/crypto_trade",
+    icon: "/icons/coinpulse.jpg",
     platform: "Flutter",
   },
   {
@@ -264,6 +274,7 @@ export const projects: Project[] = [
     highlights: ["Two apps, one shared API and data model", "Role-separated flows for staff and parents"],
     stack: ["Flutter", "Dart", "REST API"],
     repo: "https://github.com/soutAhmedTayseer/Nursery-Management-System",
+    icon: "/icons/nursery.png",
     platform: "Flutter",
   },
   {
@@ -278,6 +289,7 @@ export const projects: Project[] = [
     highlights: ["MVP architecture in Swift", "CoreData offline favourites", "Over 90% unit test coverage"],
     stack: ["Swift", "UIKit", "MVP", "Alamofire", "CoreData"],
     repo: "https://github.com/soutAhmedTayseer/Sportiva-app",
+    icon: "/icons/sportiva.png",
     platform: "iOS",
   },
   {
@@ -292,6 +304,7 @@ export const projects: Project[] = [
     highlights: ["XP tracking and progressive lessons", "Arabic/English localisation with Cubit", "Cubit-driven lesson flow state management"],
     stack: ["Flutter", "Dart", "Cubit", "REST APIs"],
     repo: "https://github.com/soutAhmedTayseer/CodeAlpha_LanguageLearningApp",
+    icon: "/icons/lingualeap.png",
     platform: "Flutter",
   },
   {
@@ -306,6 +319,7 @@ export const projects: Project[] = [
     highlights: ["Auto-generated quizzes from a live API", "Quiz history tracking for progress review", "Debounced search for flashcard lookup"],
     stack: ["Flutter", "Dart", "Cubit", "REST APIs"],
     repo: "https://github.com/soutAhmedTayseer/CodeAlpha_FlashcardQuizApp",
+    icon: "/icons/quizdeck.png",
     platform: "Flutter",
   },
   {
@@ -328,6 +342,7 @@ export const projects: Project[] = [
       { label: "Client", url: "https://github.com/soutAhmedTayseer/Client_XO_Game" },
       { label: "Server", url: "https://github.com/soutAhmedTayseer/Server_XO_Game" },
     ],
+    icon: "/icons/xo.png",
     platform: "Backend",
   },
   {
@@ -342,6 +357,7 @@ export const projects: Project[] = [
     highlights: ["FusedLocationProviderClient for accurate fixes", "Reverse geocoding to street addresses", "Implicit intents for SMS and maps"],
     stack: ["Kotlin", "Jetpack Compose", "Material 3", "Play Services Location"],
     repo: "https://github.com/soutAhmedTayseer/Locateme",
+    icon: "/icons/locateme.png",
     platform: "Android",
   },
 ];

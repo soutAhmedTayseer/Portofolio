@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
 import { TiltCard } from "./Motion";
@@ -26,10 +27,14 @@ export default function Work({ projects }: { projects: Project[] }) {
           >
             <div>
               {/* app icon tile */}
-              <div className="mb-6 grid size-16 place-items-center rounded-2xl border border-line bg-ink transition-colors duration-300 group-hover:border-accent/40">
-                <span className="text-lg font-black text-accent-ink transition-transform duration-500 group-hover:scale-105">
-                  {p.title.slice(0, 2).toUpperCase()}
-                </span>
+              <div className="mb-6 size-16 overflow-hidden rounded-2xl border border-line bg-ink transition-colors duration-300 group-hover:border-accent/40">
+                <Image
+                  src={p.icon}
+                  alt={`${p.title} icon`}
+                  width={64}
+                  height={64}
+                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
 
               <div className="mb-3 flex items-center justify-between gap-3">
