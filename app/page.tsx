@@ -277,6 +277,9 @@ export default function Home() {
                       <span className="text-sm text-muted">{e.period}</span>
                     </div>
                     <p className="mt-1 flex flex-wrap items-center gap-2 text-sm text-accent-ink">
+                      {"logo" in e && e.logo && (
+                        <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
+                      )}
                       {e.org}
                       <span className="rounded-md border border-line px-2 py-0.5 text-xs text-muted">{e.type}</span>
                     </p>
@@ -326,7 +329,12 @@ export default function Home() {
                         <h3 className="text-base font-semibold">{e.title}</h3>
                         <span className="chip text-muted">{e.period}</span>
                       </div>
-                      <p className="mt-1 text-sm text-accent-ink">{e.org}</p>
+                      <p className="mt-1 flex items-center gap-2 text-sm text-accent-ink">
+                        {"logo" in e && e.logo && (
+                          <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
+                        )}
+                        {e.org}
+                      </p>
                       <p className="mt-3 text-sm text-muted">{e.note}</p>
                     </div>
                   </Reveal>

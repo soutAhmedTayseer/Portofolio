@@ -545,6 +545,7 @@ export const experience = [
   {
     role: "Big Data Track Intern",
     org: "Telecom Egypt",
+    logo: "/logos/orgs/telecom-egypt.png",
     period: "Jul 2024 — Aug 2024",
     type: "Internship",
     points: [
@@ -565,6 +566,7 @@ export const education = [
   {
     title: "9-Month Diploma — Mobile Applications Development (Native)",
     org: "Information Technology Institute (ITI)",
+    logo: "/logos/orgs/iti.png",
     period: "Oct 2025 — Present",
     note: "Intensive training under the Ministry of Telecommunications and Information Technology, specialising in native and cross-platform mobile architectures.",
   },
