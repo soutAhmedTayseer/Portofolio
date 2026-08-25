@@ -38,10 +38,10 @@ export default function DeviceStack() {
     whileHover: reduce ? undefined : { y: -10, scale: 1.03, transition: { duration: 0.3 } },
   });
 
-  const phones: { brand: BrandKey; label: string; src?: string; alt: string }[] = [
-    { brand: "kotlin", label: "Kotlin", src: heroScreens[0].src, alt: heroScreens[0].alt },
-    { brand: "flutter", label: "Flutter", src: "/screens/hero/flutter.webp", alt: "Flutter app screenshot" },
-    { brand: "swift", label: "Swift", src: "/screens/hero/ios.png", alt: "SwiftUI app screenshot" },
+  const phones: { brand: BrandKey; label: string; src?: string; alt: string; ratio: number }[] = [
+    { brand: "kotlin", label: "Kotlin", src: heroScreens[0].src, alt: heroScreens[0].alt, ratio: 720 / 1521 },
+    { brand: "flutter", label: "Flutter", src: "/screens/hero/flutter.webp", alt: "Flutter app screenshot", ratio: 405 / 900 },
+    { brand: "swift", label: "Swift", src: "/screens/hero/ios.png", alt: "SwiftUI app screenshot", ratio: 415 / 900 },
   ];
 
   const tilt = ["float-tilt-a", "float-tilt-b", "float-tilt-c"];
@@ -52,7 +52,10 @@ export default function DeviceStack() {
       {phones.map((p, i) => (
         <motion.div key={p.label} {...rise(0.08 + i * 0.1)} className={`w-1/3 max-w-64 ${shift[i]}`}>
           <div className={`rounded-[2rem] border border-line bg-card p-1 device-shadow ${tilt[i]}`}>
-            <div className="relative aspect-[9/19.5] overflow-hidden rounded-[1.7rem] bg-black">
+            <div
+              className="relative overflow-hidden rounded-[1.7rem] bg-black"
+              style={{ aspectRatio: p.ratio }}
+            >
               {p.src ? (
                 <Image
                   src={p.src}
@@ -60,7 +63,7 @@ export default function DeviceStack() {
                   fill
                   priority={i === 0}
                   sizes="(max-width: 640px) 30vw, 260px"
-                  className="scale-[1.13] object-cover"
+                  className="object-cover"
                 />
               ) : (
                 <ScreenSlot label="Add screenshot" />

@@ -524,6 +524,7 @@ export const experience = [
   {
     role: "Flutter Developer (Contract)",
     org: "MaVoid",
+    logo: "/logos/orgs/mavoid.jpg",
     period: "Oct 2024 — Oct 2025",
     type: "Contract",
     points: [
@@ -534,6 +535,7 @@ export const experience = [
   {
     role: "App Development Intern",
     org: "CodeAlpha",
+    logo: "/logos/orgs/codealpha.jpg",
     period: "Sep 2024 — Oct 2024",
     type: "Internship",
     points: [
@@ -556,6 +558,8 @@ export const experience = [
   {
     role: "React Mentor",
     org: "Semi Colon Civil Work",
+    logo: "/logos/orgs/semicolon.jpg",
+    logo2: "/logos/orgs/react.png",
     period: "Jun 2023 — Oct 2023",
     type: "Volunteering",
     points: ["Mentored 20+ students in web development fundamentals including HTML, CSS and React."],
@@ -579,8 +583,20 @@ export const education = [
 ];
 
 export const awards = [
-  { title: "Best Intern", org: "CodeAlpha", period: "Oct 2024" },
-  { title: "Best Intern & Best Project", org: "Telecom Egypt", period: "Aug 2024" },
+  {
+    title: "Best Intern",
+    org: "CodeAlpha",
+    period: "Oct 2024",
+    logo: "/logos/orgs/codealpha.jpg",
+    link: "https://lnkd.in/p/e2CUnNZn",
+  },
+  {
+    title: "Best Intern & Best Project",
+    org: "Telecom Egypt",
+    period: "Aug 2024",
+    logo: "/logos/orgs/telecom-egypt.png",
+    link: "https://lnkd.in/p/es8AdkQK",
+  },
 ];
 
 export const languages = [

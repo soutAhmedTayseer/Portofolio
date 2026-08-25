@@ -281,6 +281,9 @@ export default function Home() {
                         <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
                       )}
                       {e.org}
+                      {"logo2" in e && e.logo2 && (
+                        <Image src={e.logo2} alt="React logo" width={20} height={20} className="size-5 rounded-md object-contain" />
+                      )}
                       <span className="rounded-md border border-line px-2 py-0.5 text-xs text-muted">{e.type}</span>
                     </p>
                     <ul className="mt-4 space-y-2 text-sm text-muted">
@@ -347,22 +350,29 @@ export default function Home() {
                     <h3 className="label">Honors &amp; awards</h3>
                     <ul className="mt-5 space-y-4">
                       {awards.map((a) => (
-                        <li key={a.title + a.org} className="flex items-start gap-3">
-                          <span
-                            className="mt-0.5 grid size-9 shrink-0 place-items-center rounded-xl border border-line"
-                            style={{ background: "color-mix(in srgb, var(--warm) 14%, transparent)", color: "var(--warm)" }}
-                            aria-hidden
+                        <li key={a.title + a.org}>
+                          <a
+                            href={a.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="group flex items-start gap-3 rounded-xl transition-colors hover:bg-ink"
                           >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <circle cx="12" cy="9" r="5" />
-                              <path d="m8.5 13.5-1.5 8 5-3 5 3-1.5-8" />
-                            </svg>
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block text-sm font-semibold">{a.title}</span>
-                            <span className="block text-sm text-muted">{a.org}</span>
-                          </span>
-                          <span className="chip shrink-0 text-muted">{a.period}</span>
+                            <span className="mt-0.5 grid size-9 shrink-0 place-items-center overflow-hidden rounded-xl border border-line bg-ink">
+                              {a.logo ? (
+                                <Image src={a.logo} alt={`${a.org} logo`} width={36} height={36} className="size-full object-cover" />
+                              ) : (
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--warm)" }}>
+                                  <circle cx="12" cy="9" r="5" />
+                                  <path d="m8.5 13.5-1.5 8 5-3 5 3-1.5-8" />
+                                </svg>
+                              )}
+                            </span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block text-sm font-semibold group-hover:text-accent-ink">{a.title}</span>
+                              <span className="block text-sm text-muted">{a.org}</span>
+                            </span>
+                            <span className="chip shrink-0 text-muted">{a.period}</span>
+                          </a>
                         </li>
                       ))}
                     </ul>
