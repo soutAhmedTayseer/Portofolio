@@ -40,8 +40,8 @@ export default function DeviceStack() {
 
   const phones: { brand: BrandKey; label: string; src?: string; alt: string }[] = [
     { brand: "kotlin", label: "Kotlin", src: heroScreens[0].src, alt: heroScreens[0].alt },
-    { brand: "flutter", label: "Flutter", alt: "Flutter app screenshot" },
-    { brand: "swift", label: "Swift", alt: "SwiftUI app screenshot" },
+    { brand: "flutter", label: "Flutter", src: "/screens/hero/flutter.webp", alt: "Flutter app screenshot" },
+    { brand: "swift", label: "Swift", src: "/screens/hero/ios.png", alt: "SwiftUI app screenshot" },
   ];
 
   const tilt = ["float-tilt-a", "float-tilt-b", "float-tilt-c"];
