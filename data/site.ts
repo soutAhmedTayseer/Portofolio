@@ -56,7 +56,7 @@ export type Project = {
   repo?: string;
   repos?: { label: string; url: string }[];
   icon: string;
-  platform: "Android" | "Flutter" | "Kotlin Multiplatform" | "iOS" | "Backend";
+  platform: "Kotlin" | "Java Mobile" | "Java Desktop" | "Flutter" | "Kotlin Multiplatform" | "iOS";
   highlights: string[];
   screens?: Screen[];
   featured?: boolean;
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "MVVM", "Room", "MockK", "AlarmManager"],
     repo: "https://github.com/soutAhmedTayseer/Weather-Forecast-Application",
     icon: "/icons/pixelcast.jpg",
-    platform: "Android",
+    platform: "Kotlin",
     screens: shots("weather", 10, "PixelCast weather app", { framed: true }),
     featured: true,
   },
@@ -133,7 +133,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Room", "Retrofit", "Riot Games API", "Coroutines"],
     repo: "https://github.com/soutAhmedTayseer/League-Of-Legends-Guide",
     icon: "/icons/champion-codex.png",
-    platform: "Android",
+    platform: "Kotlin",
     screens: [
       { src: "/screens/lol/01.webp", alt: "Champion Codex — roster list", framed: true },
       { src: "/screens/lol/02.webp", alt: "Champion Codex — champion detail", framed: true },
@@ -159,7 +159,7 @@ export const projects: Project[] = [
     stack: ["Java", "Android", "MVP", "RxJava 3", "Retrofit", "Room", "Firebase"],
     repo: "https://github.com/soutAhmedTayseer/Food_Planner",
     icon: "/icons/preperroni.png",
-    platform: "Android",
+    platform: "Java Mobile",
     screens: shots("food", 10, "Preperroni meal planner"),
     featured: true,
   },
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "MVI", "Modularization", "Clean Architecture", "Koin"],
     repo: "https://github.com/soutAhmedTayseer/NutriScan",
     icon: "/icons/nutriscan.png",
-    platform: "Android",
+    platform: "Kotlin",
   },
   {
     slug: "wearzone",
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "Hilt", "Shopify API", "Paymob", "Mapbox"],
     repo: "https://github.com/soutAhmedTayseer/WearZone",
     icon: "/icons/wearzone.png",
-    platform: "Android",
+    platform: "Kotlin",
   },
   {
     slug: "docdesk",
@@ -343,7 +343,7 @@ export const projects: Project[] = [
       { label: "Server", url: "https://github.com/soutAhmedTayseer/Server_XO_Game" },
     ],
     icon: "/icons/xo.png",
-    platform: "Backend",
+    platform: "Java Desktop",
   },
   {
     slug: "locateme",
@@ -358,7 +358,7 @@ export const projects: Project[] = [
     stack: ["Kotlin", "Jetpack Compose", "Material 3", "Play Services Location"],
     repo: "https://github.com/soutAhmedTayseer/Locateme",
     icon: "/icons/locateme.png",
-    platform: "Android",
+    platform: "Kotlin",
   },
 ];
 
