@@ -245,6 +245,14 @@ h3 {
 .float-mid { animation: float-y 8s ease-in-out infinite 0.6s; }
 .float-slower { animation: float-y 9s ease-in-out infinite; }
 
+@keyframes float-tilt {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50% { transform: translateY(-20px) rotate(calc(var(--tilt, 0deg) * -1)); }
+}
+.float-tilt-a { animation: float-tilt 6.5s ease-in-out infinite; --tilt: -3deg; }
+.float-tilt-b { animation: float-tilt 7.5s ease-in-out infinite 0.4s; --tilt: 0deg; }
+.float-tilt-c { animation: float-tilt 8.5s ease-in-out infinite 0.8s; --tilt: 3deg; }
+
 /* jetpack flame under the mascot */
 @keyframes flame {
   0%, 100% { transform: scaleY(0.7); opacity: 0.7; }
@@ -257,6 +265,9 @@ h3 {
   .float-slow,
   .float-mid,
   .float-slower,
+  .float-tilt-a,
+  .float-tilt-b,
+  .float-tilt-c,
   .marquee,
   .flame,
   .aurora span {
