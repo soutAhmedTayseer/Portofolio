@@ -577,6 +577,7 @@ export const education = [
   {
     title: "B.Sc. in Software Industry and Multimedia (SIM) — Computer Science",
     org: "Alexandria University, Faculty of Science",
+    logo: "/logos/orgs/sim.jpg",
     period: "Sep 2021 — Jun 2025",
     note: "GPA 3.45 — Excellent with Honors.",
   },
