@@ -40,7 +40,7 @@ export default function CircuitField() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       // density scales with area, capped so phones stay smooth
-      const count = Math.min(90, Math.round((w * h) / 22000));
+      const count = Math.min(50, Math.round((w * h) / 32000));
       nodes = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -50,7 +50,14 @@ export default function CircuitField() {
       }));
     };
 
-    const draw = () => {
+    let lastFrame = 0;
+    const FRAME_BUDGET = 1000 / 30;
+
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      if (now - lastFrame < FRAME_BUDGET) return;
+      lastFrame = now;
+
       ctx.clearRect(0, 0, w, h);
 
       for (const n of nodes) {
@@ -71,16 +78,19 @@ export default function CircuitField() {
         }
       }
 
-      // links
+      // links — squared-distance filter first, sqrt only for survivors
+      const LINK_DIST = 130;
+      const LINK_DIST2 = LINK_DIST * LINK_DIST;
       for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
         for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i];
           const b = nodes[j];
           const dx = a.x - b.x;
           const dy = a.y - b.y + scrollShift * 0.02;
-          const dist = Math.hypot(dx, dy);
-          if (dist > 130) continue;
-          ctx.globalAlpha = (1 - dist / 130) * 0.22;
+          const d2 = dx * dx + dy * dy;
+          if (d2 > LINK_DIST2) continue;
+          const dist = Math.sqrt(d2);
+          ctx.globalAlpha = (1 - dist / LINK_DIST) * 0.22;
           ctx.strokeStyle = dist < 70 ? green : accent;
           ctx.lineWidth = 1;
           ctx.beginPath();
@@ -100,7 +110,6 @@ export default function CircuitField() {
       }
 
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(draw);
     };
 
     const onPointer = (e: PointerEvent) => {

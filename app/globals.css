@@ -166,13 +166,16 @@ h3 {
 .aurora span {
   position: absolute;
   display: block;
-  width: 46vw;
-  height: 46vw;
-  min-width: 320px;
-  min-height: 320px;
+  width: 34vw;
+  height: 34vw;
+  min-width: 260px;
+  min-height: 260px;
+  max-width: 480px;
+  max-height: 480px;
   border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(48px);
   will-change: transform;
+  transform: translateZ(0);
 }
 
 .aurora span:nth-child(1) {
