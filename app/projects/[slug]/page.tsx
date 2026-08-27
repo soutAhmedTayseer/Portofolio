@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import DemoViewport from "@/components/DemoViewport";
 import ThemeToggle from "@/components/ThemeToggle";
-import { projects, caseStudy, profile } from "@/data/site";
+import { projects, caseStudy, profile, hasDemo } from "@/data/site";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -36,6 +36,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   if (!project) notFound();
 
   const extra = caseStudy[slug] ?? {};
+  const showDemo = hasDemo(extra);
 
   return (
     <main className="min-h-screen px-6 py-16">
@@ -137,14 +138,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
           {/* right column — demo */}
           <div className="flex min-w-0 flex-col items-center lg:col-span-5">
-            <DemoViewport
-              videos={extra.videos}
-              liveDemos={extra.liveDemos}
-              apk={extra.apk}
-              title={project.title}
-            />
+            {showDemo && (
+              <DemoViewport
+                videos={extra.videos}
+                liveDemos={extra.liveDemos}
+                apk={extra.apk}
+                title={project.title}
+              />
+            )}
 
-            <div className="mt-10 w-full rounded-3xl border border-line bg-card p-6">
+            <div className={`w-full rounded-3xl border border-line bg-card p-6 ${showDemo ? "mt-10" : ""}`}>
               <h4 className="mb-4 text-xs font-extrabold uppercase tracking-wider">Technologies employed</h4>
               <div className="flex flex-wrap gap-2">
                 {project.stack.map((s) => (

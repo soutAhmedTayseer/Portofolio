@@ -7,7 +7,7 @@ export const profile = {
   hero:
     "Junior Android Developer with a Computer Science degree and hands-on Flutter experience. I build native Android apps with Kotlin and Jetpack Compose, and cross-platform apps with Flutter and Dart — using Clean Architecture, MVVM/MVI and dependency injection.",
   summary:
-    "Junior Android Developer with a Bachelor's degree in Computer Science and hands-on Flutter cross-platform experience. Comfortable with REST APIs, Firebase and local persistence (Room, SQLite), with exposure to Kotlin Multiplatform and CI/CD. Shipped a portfolio of 14 apps solo, in teams, and under contract.",
+    "Junior Android Developer with a Bachelor's degree in Computer Science and hands-on Flutter cross-platform experience. Comfortable with REST APIs, Firebase and local persistence (Room, SQLite), with exposure to Kotlin Multiplatform and CI/CD. Shipped a portfolio of 10+ apps solo, in teams, and under contract.",
   avatar: "https://avatars.githubusercontent.com/u/122810273?v=4",
   email: "ahmedtayseer424@gmail.com",
   phone: "+20 111 945 0425",
@@ -352,6 +352,14 @@ export const projects: Project[] = [
 
 export type Demo = { title: string; url: string };
 
+/** Entries without a URL aren't ready to show, so they never reach the UI. */
+export const ready = (items: Demo[] = []) => items.filter((d) => Boolean(d.url));
+
+/** True when a project has anything worth rendering a demo panel for. */
+export function hasDemo({ videos, liveDemos, apk }: { videos?: Demo[]; liveDemos?: Demo[]; apk?: string }) {
+  return ready(videos).length > 0 || ready(liveDemos).length > 0 || Boolean(apk);
+}
+
 /**
  * Per-project case-study extras. Everything here is optional — a project with no
  * entry still gets a case-study page built from `projects` above.
@@ -584,7 +592,7 @@ export const languages = [
 ];
 
 export const stats = [
-  { value: `${projects.length}`, label: "Apps shipped solo, in teams and under contract" },
+  { value: "10+", label: "Apps shipped solo, in teams and under contract" },
   { value: "4", label: "Stacks: Android, Flutter, KMP, iOS" },
   { value: "9 mo", label: "ITI native mobile diploma" },
 ];
