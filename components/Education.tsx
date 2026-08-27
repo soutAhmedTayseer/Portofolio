@@ -52,7 +52,12 @@ export default function EducationSection() {
                         )}
                         <div className="min-w-0 flex-1">
                           <h3 className="text-lg font-bold leading-snug tracking-tight">{e.title}</h3>
-                          <p className="mt-1 text-sm font-semibold text-accent-ink">{e.org}</p>
+                          {/* org takes the card's tint so the whole card reads
+                              as one colour, rather than a green card with a
+                              blue line of text in it */}
+                          <p className="mt-1 text-sm font-semibold" style={{ color: tint }}>
+                            {e.org}
+                          </p>
                         </div>
                       </div>
 

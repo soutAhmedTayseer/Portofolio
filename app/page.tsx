@@ -135,9 +135,11 @@ export default function Home() {
         {/* About */}
         <section id="about" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[300px_1fr]">
-            <Reveal>
-              <div className="relative">
-                <ProfileCarousel />
+            {/* flex column so the photo grows to the height of the text beside
+                it and the credentials land level with the pillar cards */}
+            <Reveal className="flex flex-col">
+              <div className="relative flex min-h-0 flex-1 flex-col">
+                <ProfileCarousel fill />
 
                 {/* toolchain badges orbiting the photo */}
                 <span className="absolute -left-4 top-8 grid size-12 place-items-center rounded-2xl border border-line bg-card device-shadow float-slow" style={{ color: brands.kotlin.color }}>
@@ -169,7 +171,7 @@ export default function Home() {
                 />
               </div>
             </Reveal>
-            <Reveal delay={0.05}>
+            <Reveal delay={0.05} className="flex flex-col">
               <SectionTitle eyebrow="About" title="Mobile-first, architecture-obsessed" />
               <div className="mt-6 space-y-4 text-muted">
                 <p>{profile.summary}</p>
@@ -190,7 +192,7 @@ export default function Home() {
                   senior developers.
                 </p>
               </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-auto lg:pt-8">
                 {pillars.map((c, i) => {
                   const tint =
                     [brands.android.color, brands.flutter.color, brands.kotlin.color, brands.swift.color][i] ??

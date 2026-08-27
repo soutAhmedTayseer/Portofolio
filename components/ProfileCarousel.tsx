@@ -7,7 +7,7 @@ import { profile } from "@/data/site";
 
 const EVERY = 5000;
 
-export default function ProfileCarousel() {
+export default function ProfileCarousel({ fill = false }: { fill?: boolean }) {
   const shots = [profile.avatar, profile.avatarAlt];
   const [[i, dir], setState] = useState<[number, number]>([0, 1]);
   const [paused, setPaused] = useState(false);
@@ -26,11 +26,13 @@ export default function ProfileCarousel() {
 
   return (
     <div
-      className="rounded-[1.6rem] p-[2px]"
+      className={`rounded-[1.6rem] p-[2px] ${fill ? "flex h-full min-h-0" : ""}`}
       style={{ background: "linear-gradient(140deg, var(--accent), var(--green) 55%, var(--hot))" }}
     >
       <motion.div
-        className="relative aspect-[3/4] touch-pan-y overflow-hidden rounded-[1.5rem] bg-card"
+        className={`relative w-full touch-pan-y overflow-hidden rounded-[1.5rem] bg-card ${
+          fill ? "h-full min-h-[26rem]" : "aspect-[3/4]"
+        }`}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         drag="x"

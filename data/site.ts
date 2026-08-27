@@ -452,7 +452,7 @@ export const caseStudy: Record<
   wearzone: {
     architecture:
       "Feature-first modules behind Clean Architecture, injected with Hilt. Shopify Admin API drives the catalogue, Paymob handles checkout, and WorkManager runs deferred notification work.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "yBN2O_0NPVo", ratio: PHONE }],
     liveDemos: [{ title: "WearZone — Android", url: "" }],
   },
   docdesk: {

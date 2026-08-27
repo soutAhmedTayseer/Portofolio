@@ -80,7 +80,8 @@ export default function DemoViewport({
                 video.youtube ? (
                   <iframe
                     key={video.youtube}
-                    src={`https://www.youtube-nocookie.com/embed/${video.youtube}?rel=0&modestbranding=1&playsinline=1&loop=1&playlist=${video.youtube}`}
+                    // muted is required — browsers block autoplay with sound
+                    src={`https://www.youtube-nocookie.com/embed/${video.youtube}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=${video.youtube}`}
                     title={`${title} — ${video.title}`}
                     className="h-full w-full border-0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
