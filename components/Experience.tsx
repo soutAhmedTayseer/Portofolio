@@ -4,11 +4,12 @@ import { CenterTitle } from "./Section";
 import { experience } from "@/data/site";
 
 /**
- * Colour carries meaning rather than decoration: green marks a role I'm still
- * in, blue marks one that's finished. Right now everything is finished.
+ * Colour carries meaning rather than decoration: green marks a finished role
+ * (same convention as the Education cards), blue marks one still in progress.
+ * Right now every role listed has finished.
  */
-const CURRENT = "var(--green)";
-const DONE = "var(--accent)";
+const CURRENT = "var(--accent)";
+const DONE = "var(--green)";
 
 export default function ExperienceSection() {
   return (
@@ -26,7 +27,7 @@ export default function ExperienceSection() {
         <div className="relative space-y-8 sm:pl-14">
           <span
             className="absolute left-[13px] top-4 bottom-4 hidden w-[2px] rounded-full opacity-50 sm:block"
-            style={{ background: "linear-gradient(to bottom, var(--accent), var(--green), var(--hot), transparent)" }}
+            style={{ background: "linear-gradient(to bottom, var(--green), transparent)" }}
             aria-hidden
           />
 
