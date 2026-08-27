@@ -350,6 +350,27 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * Screenshot reels played back inside the emulator carousel. `count` files live
+ * at `<dir>/01.webp`…; `framed` means the shots already carry a device bezel.
+ */
+export type Emulator = {
+  slug: string;
+  title: string;
+  note: string;
+  brand: "kotlin" | "flutter" | "swift";
+  dir: string;
+  count: number;
+  framed?: boolean;
+};
+
+export const emulators: Emulator[] = [
+  { slug: "nutriscan", title: "NutriScan", note: "AI nutrition & fitness tracker", brand: "kotlin", dir: "/screens/nutriscan", count: 12 },
+  { slug: "tawseel", title: "Tawseel", note: "Customer & driver delivery apps", brand: "flutter", dir: "/screens/tawseel", count: 20 },
+  { slug: "pixelcast", title: "PixelCast", note: "8-bit offline weather forecast", brand: "kotlin", dir: "/screens/pixelcast", count: 10, framed: true },
+  { slug: "sportiva", title: "Sportiva", note: "iOS sports tracker in Swift", brand: "swift", dir: "/screens/sportiva", count: 9 },
+];
+
 export type Demo = { title: string; url: string };
 
 /** Entries without a URL aren't ready to show, so they never reach the UI. */
