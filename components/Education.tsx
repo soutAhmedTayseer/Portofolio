@@ -19,11 +19,12 @@ export default function EducationSection() {
           <div className="relative space-y-6 sm:pl-12">
             <span
               className="absolute left-[13px] top-4 bottom-4 hidden w-[2px] rounded-full opacity-50 sm:block"
-              style={{ background: "linear-gradient(to bottom, var(--accent), var(--green), transparent)" }}
+              style={{ background: "linear-gradient(to bottom, var(--green), transparent)" }}
               aria-hidden
             />
             {education.map((e, i) => {
-              const tint = i === 0 ? "var(--accent)" : "var(--green)";
+              // both degrees are complete, so both cards read as finished (green)
+              const tint = "var(--green)";
               return (
                 <Reveal key={e.title} delay={i * 0.05}>
                   <div className="relative">
