@@ -7,7 +7,7 @@ export const profile = {
   hero:
     "Junior Android Developer with a Computer Science degree and hands-on Flutter experience. I build native Android apps with Kotlin and Jetpack Compose, and cross-platform apps with Flutter and Dart — using Clean Architecture, MVVM/MVI and dependency injection.",
   summary:
-    "Junior Android Developer with a Bachelor's degree in Computer Science and hands-on Flutter cross-platform experience. Comfortable with REST APIs, Firebase and local persistence (Room, SQLite), with exposure to Kotlin Multiplatform and CI/CD. Shipped a portfolio of 10+ apps solo, in teams, and under contract.",
+    "Junior Android Developer with a Bachelor's degree in Computer Science and hands-on Flutter cross-platform experience. Comfortable with REST APIs, Firebase and local persistence (Room, SQLite), with exposure to Kotlin Multiplatform and CI/CD. Shipped a portfolio of 14 apps solo, in teams, and under contract.",
   avatar: "https://avatars.githubusercontent.com/u/122810273?v=4",
   email: "ahmedtayseer424@gmail.com",
   phone: "+20 111 945 0425",
@@ -440,13 +440,6 @@ export const caseStudy: Record<
   },
 };
 
-/** Phones shown in the hero cluster. */
-export const heroScreens: Screen[] = [
-  { src: "/screens/weather/05.webp", alt: "PixelCast — Arabic home screen", framed: true },
-  { src: "/screens/lol/01.webp", alt: "Champion Codex — roster list", framed: true },
-  { src: "/screens/weather/09.webp", alt: "PixelCast — live monitor setup", framed: true },
-];
-
 export const skills = [
   {
     title: "Languages",
@@ -591,7 +584,7 @@ export const languages = [
 ];
 
 export const stats = [
-  { value: "10+", label: "Apps shipped solo, in teams and under contract" },
+  { value: `${projects.length}`, label: "Apps shipped solo, in teams and under contract" },
   { value: "4", label: "Stacks: Android, Flutter, KMP, iOS" },
   { value: "9 mo", label: "ITI native mobile diploma" },
 ];

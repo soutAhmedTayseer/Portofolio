@@ -1,13 +1,34 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
+import CvViewer from "@/components/CvViewer";
 import { Brandmark } from "@/components/Brandmark";
-import { profile, experience, education, awards } from "@/data/site";
+import { profile, experience, education, awards, skills, languages } from "@/data/site";
 
 export const metadata: Metadata = {
   title: `CV — ${profile.name}`,
   description: `Curriculum vitae of ${profile.name}, ${profile.role}.`,
 };
+
+function cvSize() {
+  try {
+    const bytes = fs.statSync(path.join(process.cwd(), "public", path.basename(profile.cv))).size;
+    return `${Math.round(bytes / 1024)} KB`;
+  } catch {
+    return "PDF";
+  }
+}
+
+function Card({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-3xl border border-line bg-card p-7">
+      <h2 className="label">{title}</h2>
+      {children}
+    </div>
+  );
+}
 
 export default function CvPage() {
   return (
@@ -51,42 +72,51 @@ export default function CvPage() {
           </div>
         </header>
 
-        {/* inline preview — browsers that can't render PDFs fall back to the summary below */}
-        <div className="overflow-hidden rounded-3xl border border-line bg-card">
-          <object data={`${profile.cv}#view=FitH`} type="application/pdf" className="h-[78vh] w-full">
-            <div className="p-10 text-center">
-              <p className="text-muted">Your browser can&apos;t display the PDF inline.</p>
-              <a
-                href={profile.cv}
-                download
-                className="mt-5 inline-block rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-contrast"
-              >
-                Download the CV
-              </a>
-            </div>
-          </object>
-        </div>
+        <CvViewer sizeLabel={cvSize()} />
 
         {/* text version: readable on phones, and indexable */}
-        <section className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div className="rounded-3xl border border-line bg-card p-7">
-            <h2 className="label">Experience</h2>
-            <ul className="mt-5 space-y-5">
+        <section id="cv-text" className="mt-14 scroll-mt-8 space-y-8">
+          <Card title="Profile">
+            <p className="mt-5 text-sm leading-relaxed text-muted">{profile.summary}</p>
+            <div className="mt-5 flex flex-wrap gap-3 text-sm">
+              <a href={`mailto:${profile.email}`} className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                {profile.email}
+              </a>
+              <a href={profile.github} target="_blank" rel="noreferrer" className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                GitHub
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                LinkedIn
+              </a>
+            </div>
+          </Card>
+
+          <Card title="Experience">
+            <ul className="mt-5 space-y-7">
               {experience.map((e) => (
                 <li key={`${e.org}-${e.role}`}>
                   <div className="flex flex-wrap items-baseline justify-between gap-2">
                     <span className="font-semibold">{e.role}</span>
                     <span className="chip text-muted">{e.period}</span>
                   </div>
-                  <p className="mt-0.5 text-sm text-accent-ink">{e.org}</p>
+                  <p className="mt-0.5 text-sm text-accent-ink">
+                    {e.org} <span className="text-muted">· {e.type}</span>
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm text-muted">
+                    {e.points.map((p) => (
+                      <li key={p} className="flex gap-3">
+                        <span className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
 
-          <div className="space-y-8">
-            <div className="rounded-3xl border border-line bg-card p-7">
-              <h2 className="label">Education</h2>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <Card title="Education">
               <ul className="mt-5 space-y-5">
                 {education.map((e) => (
                   <li key={e.title}>
@@ -95,26 +125,56 @@ export default function CvPage() {
                       <span className="chip text-muted">{e.period}</span>
                     </div>
                     <p className="mt-0.5 text-sm text-accent-ink">{e.org}</p>
+                    <p className="mt-2 text-sm text-muted">{e.note}</p>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Card>
 
-            <div className="rounded-3xl border border-line bg-card p-7">
-              <h2 className="label">Honors</h2>
-              <ul className="mt-5 space-y-3">
-                {awards.map((a) => (
-                  <li key={a.title + a.org} className="flex items-baseline justify-between gap-3 text-sm">
-                    <span>
-                      <span className="font-semibold">{a.title}</span>
-                      <span className="text-muted"> · {a.org}</span>
-                    </span>
-                    <span className="chip text-muted">{a.period}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="space-y-8">
+              <Card title="Honors">
+                <ul className="mt-5 space-y-3">
+                  {awards.map((a) => (
+                    <li key={a.title + a.org} className="flex items-baseline justify-between gap-3 text-sm">
+                      <span>
+                        <span className="font-semibold">{a.title}</span>
+                        <span className="text-muted"> · {a.org}</span>
+                      </span>
+                      <span className="chip text-muted">{a.period}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+
+              <Card title="Languages">
+                <ul className="mt-5 space-y-3">
+                  {languages.map((l) => (
+                    <li key={l.name} className="flex items-baseline justify-between gap-3 text-sm">
+                      <span className="font-semibold">{l.name}</span>
+                      <span className="chip text-muted">{l.level}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
             </div>
           </div>
+
+          <Card title="Technical skills">
+            <div className="mt-5 space-y-5">
+              {skills.map((g) => (
+                <div key={g.title}>
+                  <p className="text-sm font-semibold">{g.title}</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {g.items.map((it) => (
+                      <span key={it} className="chip rounded-md border border-line bg-surface px-2.5 py-1 text-muted">
+                        {it}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
         </section>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8 text-sm text-muted">

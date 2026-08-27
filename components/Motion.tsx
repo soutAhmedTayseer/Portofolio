@@ -80,35 +80,47 @@ export function TiltCard({ children, className = "" }: { children: React.ReactNo
   );
 }
 
-/** Counts up when it scrolls into view. Keeps any prefix/suffix in the label. */
+/**
+ * Counts up when it scrolls into view. Keeps any prefix/suffix in the label.
+ *
+ * `shown` stays null until the animation actually starts, so the real value is
+ * what renders on the server, with JS off, and in every failure mode — a
+ * backgrounded tab or a bfcache restore can drop the rAF loop, and `once: true`
+ * means it never fires again.
+ */
 export function CountUp({ value, className = "" }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduce = useReducedMotion();
   const num = parseFloat(value.replace(/[^\d.]/g, ""));
   const suffix = value.replace(/[\d.]/g, "");
-  const [shown, setShown] = useState(0);
+  const [shown, setShown] = useState<number | null>(null);
 
   useEffect(() => {
-    if (Number.isNaN(num)) return;
-    if (reduce || !inView) {
-      if (reduce) setShown(num);
-      return;
-    }
+    if (Number.isNaN(num) || reduce || !inView) return;
+
     let raf = 0;
+    const decimals = num % 1 ? 2 : 0;
     const start = performance.now();
     const tick = (t: number) => {
       const p = Math.min((t - start) / 900, 1);
-      setShown(Number((num * (1 - Math.pow(1 - p, 3))).toFixed(num % 1 ? 2 : 0)));
+      setShown(Number((num * (1 - Math.pow(1 - p, 3))).toFixed(decimals)));
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+
+    // Guarantee we land on the real number even if rAF is throttled or dropped.
+    const settle = setTimeout(() => setShown(num), 1400);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(settle);
+      setShown(num);
+    };
   }, [inView, num, reduce]);
 
   return (
     <span ref={ref} className={className}>
-      {Number.isNaN(num) ? value : `${shown}${suffix}`}
+      {shown === null || Number.isNaN(num) ? value : `${shown}${suffix}`}
     </span>
   );
 }

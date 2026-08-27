@@ -6,3 +6,6 @@ out
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+
+# raw screenshot sources (converted into public/screens)
+.design-src/

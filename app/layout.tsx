@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     url: profile.site,
     siteName: profile.name,
     type: "website",
-    images: [{ url: "/screens/weather/05.webp", width: 720, height: 1521, alt: "PixelCast weather app" }],
+    // image comes from app/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",

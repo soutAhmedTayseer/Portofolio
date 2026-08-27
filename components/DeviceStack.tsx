@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { heroScreens } from "@/data/site";
 import { brands, type BrandKey } from "./Logos";
 
 function Caption({ brand, children }: { brand: BrandKey; children: React.ReactNode }) {
@@ -38,10 +37,11 @@ export default function DeviceStack() {
     whileHover: reduce ? undefined : { y: -10, scale: 1.03, transition: { duration: 0.3 } },
   });
 
-  const phones: { brand: BrandKey; label: string; src?: string; alt: string; ratio: number }[] = [
-    { brand: "kotlin", label: "Kotlin", src: heroScreens[0].src, alt: heroScreens[0].alt, ratio: 720 / 1521 },
-    { brand: "flutter", label: "Flutter", src: "/screens/hero/flutter.webp", alt: "Flutter app screenshot", ratio: 405 / 900 },
-    { brand: "swift", label: "Swift", src: "/screens/hero/ios.png", alt: "SwiftUI app screenshot", ratio: 415 / 900 },
+  /** `framed` = the PNG already renders its own device bezel, so we skip ours. */
+  const phones: { brand: BrandKey; label: string; src?: string; alt: string; ratio: number; framed?: boolean }[] = [
+    { brand: "kotlin", label: "Kotlin", src: "/screens/hero/kotlin.webp", alt: "PixelCast weather app on Android", ratio: 760 / 1605, framed: true },
+    { brand: "flutter", label: "Flutter", src: "/screens/hero/flutter.webp", alt: "Tawseel delivery app built with Flutter", ratio: 405 / 900 },
+    { brand: "swift", label: "Swift", src: "/screens/hero/ios.webp", alt: "Sportiva sports tracker on iOS", ratio: 760 / 1648 },
   ];
 
   const tilt = ["float-tilt-a", "float-tilt-b", "float-tilt-c"];
@@ -51,9 +51,13 @@ export default function DeviceStack() {
     <div className="mx-auto flex w-full max-w-3xl items-end justify-center gap-6 sm:gap-10">
       {phones.map((p, i) => (
         <motion.div key={p.label} {...rise(0.08 + i * 0.1)} className={`w-1/3 max-w-64 ${shift[i]}`}>
-          <div className={`rounded-[2rem] border border-line bg-card p-1 device-shadow ${tilt[i]}`}>
+          <div
+            className={`device-shadow ${tilt[i]} ${
+              p.framed ? "rounded-[2rem]" : "rounded-[2rem] border border-line bg-card p-1"
+            }`}
+          >
             <div
-              className="relative overflow-hidden rounded-[1.7rem] bg-black"
+              className={`relative overflow-hidden ${p.framed ? "" : "rounded-[1.7rem] bg-black"}`}
               style={{ aspectRatio: p.ratio }}
             >
               {p.src ? (
@@ -63,12 +67,14 @@ export default function DeviceStack() {
                   fill
                   priority={i === 0}
                   sizes="(max-width: 640px) 30vw, 260px"
-                  className="object-cover"
+                  className={p.framed ? "object-contain" : "object-cover"}
                 />
               ) : (
                 <ScreenSlot label="Add screenshot" />
               )}
-              <span className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/40 to-transparent" />
+              {!p.framed && (
+                <span className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/40 to-transparent" />
+              )}
             </div>
           </div>
           <Caption brand={p.brand}>{p.label}</Caption>

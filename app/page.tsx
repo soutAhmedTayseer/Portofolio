@@ -23,7 +23,6 @@ import {
   awards,
   languages,
   stats,
-  heroScreens,
   pillars,
 } from "@/data/site";
 
@@ -160,7 +159,7 @@ export default function Home() {
               <CenterTitle
                 eyebrow="Selected work"
                 title="Engineered for mobile, shipped end to end"
-                sub="Twelve apps across native Android, Flutter, Kotlin Multiplatform and iOS. Open any card for the full case study — architecture, screens and demo."
+                sub={`${projects.length} apps across native Android, Flutter, Kotlin Multiplatform and iOS. Open any card for the full case study — architecture, screens and demo.`}
               />
             </Reveal>
             <Work projects={projects} />
