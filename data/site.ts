@@ -357,18 +357,20 @@ export const projects: Project[] = [
 export type Emulator = {
   slug: string;
   title: string;
-  note: string;
   brand: "kotlin" | "flutter" | "swift";
   dir: string;
   count: number;
+  /** width / height of the source shots */
+  ratio: number;
   framed?: boolean;
 };
 
+/** First three fill the hero row on load; the arrows rotate this list. */
 export const emulators: Emulator[] = [
-  { slug: "nutriscan", title: "NutriScan", note: "AI nutrition & fitness tracker", brand: "kotlin", dir: "/screens/nutriscan", count: 12 },
-  { slug: "tawseel", title: "Tawseel", note: "Customer & driver delivery apps", brand: "flutter", dir: "/screens/tawseel", count: 20 },
-  { slug: "pixelcast", title: "PixelCast", note: "8-bit offline weather forecast", brand: "kotlin", dir: "/screens/pixelcast", count: 10, framed: true },
-  { slug: "sportiva", title: "Sportiva", note: "iOS sports tracker in Swift", brand: "swift", dir: "/screens/sportiva", count: 9 },
+  { slug: "pixelcast", title: "PixelCast", brand: "kotlin", dir: "/screens/pixelcast", count: 10, ratio: 760 / 1605, framed: true },
+  { slug: "tawseel", title: "Tawseel", brand: "flutter", dir: "/screens/tawseel", count: 20, ratio: 1080 / 2400 },
+  { slug: "sportiva", title: "Sportiva", brand: "swift", dir: "/screens/sportiva", count: 9, ratio: 1179 / 2556 },
+  { slug: "nutriscan", title: "NutriScan", brand: "kotlin", dir: "/screens/nutriscan", count: 12, ratio: 728 / 1600 },
 ];
 
 export type Demo = { title: string; url: string };

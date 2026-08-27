@@ -3,7 +3,6 @@ import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import DeviceStack from "@/components/DeviceStack";
-import EmulatorCarousel from "@/components/EmulatorCarousel";
 import Work from "@/components/Work";
 import Stack from "@/components/Stack";
 import Bugdroid from "@/components/Bugdroid";
@@ -164,22 +163,6 @@ export default function Home() {
               />
             </Reveal>
             <Work projects={projects} />
-          </div>
-        </section>
-
-        {/* Emulators */}
-        <section id="emulators" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
-          <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <CenterTitle
-                eyebrow="Live emulators"
-                title="See them running"
-                sub="Real screens from the builds, playing through each flow. Use the arrows to switch device."
-              />
-            </Reveal>
-            <Reveal delay={0.05}>
-              <EmulatorCarousel />
-            </Reveal>
           </div>
         </section>
 
