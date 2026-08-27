@@ -3,12 +3,16 @@ import Nav from "@/components/Nav";
 import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import DeviceStack from "@/components/DeviceStack";
+import ProfileCarousel from "@/components/ProfileCarousel";
 import Work from "@/components/Work";
 import Stack from "@/components/Stack";
 import Bugdroid from "@/components/Bugdroid";
 import ChatBot from "@/components/ChatBot";
 import CircuitField from "@/components/CircuitField";
 import Credential from "@/components/Credential";
+import EducationSection from "@/components/Education";
+import ExperienceSection from "@/components/Experience";
+import { SectionTitle, CenterTitle } from "@/components/Section";
 import { Brandmark } from "@/components/Brandmark";
 import { Magnetic, CountUp, RevealWords } from "@/components/Motion";
 import { brands } from "@/components/Logos";
@@ -18,40 +22,10 @@ import {
   profile,
   projects,
   skills,
-  experience,
-  education,
-  awards,
   achievements,
-  languages,
   stats,
   pillars,
 } from "@/data/site";
-
-function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
-  return (
-    <div className="max-w-2xl">
-      <p className="label">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">{title}</h2>
-      {sub && <p className="mt-4 text-muted">{sub}</p>}
-    </div>
-  );
-}
-
-/** Centred section header with the accent underline bar. */
-function CenterTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
-  return (
-    <div className="mb-16 flex flex-col items-center space-y-4 text-center">
-      <span className="label">{eyebrow}</span>
-      <h2 className="text-3xl font-extrabold sm:text-[2.75rem] sm:leading-[1.05]">{title}</h2>
-      {sub && <p className="max-w-2xl text-muted">{sub}</p>}
-      <div className="mt-2 h-1 w-12 rounded-full bg-accent" />
-    </div>
-  );
-}
-
-function Tag({ children }: { children: React.ReactNode }) {
-  return <span className="chip rounded-md border border-line bg-surface px-2.5 py-1 text-muted">{children}</span>;
-}
 
 export default function Home() {
   return (
@@ -80,8 +54,8 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.05}>
               <RevealWords
-                text="I build native Android & cross-platform mobile apps"
-                highlight={["native", "Android"]}
+                text={profile.headline}
+                highlight={["native", "Android", "iOS"]}
                 className="mt-6 text-[2rem] font-extrabold leading-[1.08] sm:text-5xl lg:text-[3.5rem]"
               />
             </Reveal>
@@ -153,6 +127,12 @@ export default function Home() {
           </Reveal>
         </section>
 
+        {/* Education, awards, languages */}
+        <EducationSection />
+
+        {/* Experience */}
+        <ExperienceSection />
+
         {/* Work */}
         <section id="work" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-7xl">
@@ -172,21 +152,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[300px_1fr]">
             <Reveal>
               <div className="relative">
-                {/* gradient ring in the toolchain colours */}
-                <div
-                  className="rounded-[1.6rem] p-[2px]"
-                  style={{ background: "linear-gradient(140deg, var(--accent), var(--green) 55%, var(--hot))" }}
-                >
-                  <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-card">
-                    <Image src={profile.avatar} alt={profile.name} fill sizes="300px" className="object-cover" />
-                    <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-2 bg-gradient-to-t from-ink/95 to-transparent p-4 pt-10">
-                      <span className="chip text-fg">{profile.location}</span>
-                      <span className="chip flex items-center gap-1.5 rounded-full border border-green/40 bg-green/10 px-2.5 py-1 text-green">
-                        <span className="size-1.5 rounded-full bg-green" /> Open to work
-                      </span>
-                    </div>
-                  </div>
-                </div>
+                <ProfileCarousel />
 
                 {/* toolchain badges orbiting the photo */}
                 <span className="absolute -left-4 top-8 grid size-12 place-items-center rounded-2xl border border-line bg-card device-shadow float-slow" style={{ color: brands.kotlin.color }}>
@@ -194,6 +160,9 @@ export default function Home() {
                 </span>
                 <span className="absolute -right-4 top-1/3 grid size-12 place-items-center rounded-2xl border border-line bg-card device-shadow float-slower" style={{ color: brands.flutter.color }}>
                   <brands.flutter.Mark className="size-6" />
+                </span>
+                <span className="absolute -right-5 bottom-28 grid size-12 place-items-center rounded-2xl border border-line bg-card device-shadow float-slow" style={{ color: brands.apple.color }}>
+                  <brands.apple.Mark className="size-6" />
                 </span>
                 <span className="absolute -left-5 bottom-16 grid size-12 place-items-center rounded-2xl border border-line bg-card device-shadow float-slower" style={{ color: brands.android.color }}>
                   <brands.android.Mark className="size-6" />
@@ -270,149 +239,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Experience */}
-        <section id="experience" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
-          <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <CenterTitle eyebrow="Experience" title="Where I've worked" />
-            </Reveal>
-            <div className="mt-12 space-y-6">
-              {experience.map((e, i) => (
-                <Reveal key={`${e.org}-${e.role}`} delay={i * 0.04}>
-                  <div className="rounded-2xl border border-line bg-card p-7">
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <h3 className="text-lg font-semibold">{e.role}</h3>
-                      <span className="text-sm text-muted">{e.period}</span>
-                    </div>
-                    <p className="mt-1 flex flex-wrap items-center gap-2 text-sm text-accent-ink">
-                      {"logo" in e && e.logo && (
-                        <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
-                      )}
-                      {e.org}
-                      <span className="rounded-md border border-line px-2 py-0.5 text-xs text-muted">{e.type}</span>
-                    </p>
-                    <ul className="mt-4 space-y-2 text-sm text-muted">
-                      {e.points.map((p) => (
-                        <li key={p} className="flex gap-3">
-                          <span className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Education, awards, languages */}
-        <section id="education" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
-          <div className="mx-auto max-w-6xl">
-            <Reveal>
-              <CenterTitle eyebrow="Education & recognition" title="Training, degrees and awards" />
-            </Reveal>
-            <div className="mt-12 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-              {/* timeline rail */}
-              <div className="relative space-y-6 pl-8">
-                <span
-                  className="absolute left-[11px] top-2 bottom-2 w-[2px] rounded-full opacity-60"
-                  style={{ background: "linear-gradient(to bottom, var(--accent), var(--green), transparent)" }}
-                  aria-hidden
-                />
-                {education.map((e, i) => (
-                  <Reveal key={e.title} delay={i * 0.05}>
-                    <div className="relative rounded-2xl border border-line bg-card p-7 transition-transform hover:-translate-y-1">
-                      <span
-                        className="absolute -left-8 top-8 grid size-6 place-items-center rounded-full border-2 bg-ink"
-                        style={{ borderColor: i === 0 ? "var(--accent)" : "var(--green)" }}
-                        aria-hidden
-                      >
-                        <span
-                          className="size-2 rounded-full"
-                          style={{ background: i === 0 ? "var(--accent)" : "var(--green)" }}
-                        />
-                      </span>
-                      <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <h3 className="text-base font-semibold">{e.title}</h3>
-                        <span className="chip text-muted">{e.period}</span>
-                      </div>
-                      <p className="mt-1 flex items-center gap-2 text-sm text-accent-ink">
-                        {"logo" in e && e.logo && (
-                          <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
-                        )}
-                        {e.org}
-                      </p>
-                      <p className="mt-3 text-sm text-muted">{e.note}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-
-              <div className="space-y-6">
-                <Reveal delay={0.05}>
-                  <div className="rounded-2xl border border-line bg-card p-7">
-                    <h3 className="label">Honors &amp; awards</h3>
-                    <ul className="mt-5 space-y-4">
-                      {awards.map((a) => (
-                        <li key={a.title + a.org}>
-                          <a
-                            href={a.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="group flex items-start gap-3 rounded-xl transition-colors hover:bg-ink"
-                          >
-                            <span className="mt-0.5 grid size-9 shrink-0 place-items-center overflow-hidden rounded-xl border border-line bg-ink">
-                              {a.logo ? (
-                                <Image src={a.logo} alt={`${a.org} logo`} width={36} height={36} className="size-full object-cover" />
-                              ) : (
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--warm)" }}>
-                                  <circle cx="12" cy="9" r="5" />
-                                  <path d="m8.5 13.5-1.5 8 5-3 5 3-1.5-8" />
-                                </svg>
-                              )}
-                            </span>
-                            <span className="min-w-0 flex-1">
-                              <span className="block text-sm font-semibold group-hover:text-accent-ink">{a.title}</span>
-                              <span className="block text-sm text-muted">{a.org}</span>
-                            </span>
-                            <span className="chip shrink-0 text-muted">{a.period}</span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-
-                <Reveal delay={0.1}>
-                  <div className="rounded-2xl border border-line bg-card p-7">
-                    <h3 className="label">Languages</h3>
-                    <ul className="mt-5 space-y-5">
-                      {languages.map((l, i) => (
-                        <li key={l.name}>
-                          <div className="flex items-baseline justify-between gap-3 text-sm">
-                            <span className="font-semibold">{l.name}</span>
-                            <span className="chip text-muted">{l.level}</span>
-                          </div>
-                          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
-                            <span
-                              className="block h-full rounded-full"
-                              style={{
-                                width: i === 0 ? "100%" : "80%",
-                                background: i === 0 ? "var(--green)" : "var(--accent)",
-                              }}
-                            />
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </Reveal>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Milestones */}
         <section id="milestones" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-6xl">
@@ -433,6 +259,7 @@ export default function Home() {
                         alt={a.title}
                         fill
                         sizes="(max-width: 640px) 92vw, 560px"
+                        style={a.pos ? { objectPosition: a.pos } : undefined}
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                       />
                     </div>
@@ -517,7 +344,7 @@ export default function Home() {
               <Brandmark className="size-11" />
               <span>
                 <span className="block font-semibold text-fg">{profile.name}</span>
-                <span className="chip block text-muted">Architecture-first mobile engineering</span>
+                <span className="chip block text-muted">{profile.tagline}</span>
               </span>
             </div>
             <p className="text-xs">

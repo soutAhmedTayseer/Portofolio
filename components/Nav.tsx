@@ -6,11 +6,11 @@ import ThemeToggle from "./ThemeToggle";
 import { BrandLockup } from "./Brandmark";
 
 const links = [
+  { href: "#education", label: "Education" },
+  { href: "#experience", label: "Experience" },
   { href: "#work", label: "Projects" },
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
-  { href: "#experience", label: "Experience" },
-  { href: "#education", label: "Education" },
   { href: "#milestones", label: "Milestones" },
   { href: "#contact", label: "Contact" },
 ];
@@ -19,7 +19,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [active, setActive] = useState("#work");
+  const [active, setActive] = useState("#education");
 
   useEffect(() => {
     const onScroll = () => {

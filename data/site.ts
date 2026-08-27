@@ -3,7 +3,8 @@ export const profile = {
   shortName: "Ahmed Tayseer",
   initials: "AT",
   role: "Android & Flutter Developer | Kotlin Multiplatform & iOS",
-  headline: "I build native Android & cross-platform mobile apps",
+  headline: "I build native Android, iOS & cross-platform mobile apps",
+  tagline: "Mobile engineer · Android, iOS & cross-platform",
   hero:
     "Mobile developer with a Computer Science degree. Android with Kotlin and Jetpack Compose and Flutter with Dart are where I'm strongest, and I extend that across Kotlin Multiplatform, Compose Multiplatform and native iOS in Swift and SwiftUI — all on Clean Architecture, MVVM/MVI and dependency injection.",
   summary:
@@ -500,7 +501,17 @@ export const skills = [
   {
     title: "Flutter & Cross-Platform",
     brand: "flutter" as const,
-    items: ["Flutter", "Dart", "Cubit", "Bloc", "Kotlin Multiplatform", "Compose Multiplatform"],
+    items: ["Flutter", "Dart", "Cubit", "Bloc", "GetX", "Provider"],
+  },
+  {
+    title: "iOS (Native)",
+    brand: "swift" as const,
+    items: ["Swift", "SwiftUI", "UIKit", "Storyboards", "Compositional Layouts", "Alamofire", "CoreData", "XCTest"],
+  },
+  {
+    title: "Kotlin & Compose Multiplatform",
+    brand: "kotlin" as const,
+    items: ["Kotlin Multiplatform", "Compose Multiplatform", "commonMain modules", "Ktor Client", "Kotlinx Serialization", "expect / actual"],
   },
   {
     title: "Architecture",
@@ -523,12 +534,12 @@ export const skills = [
     items: ["JUnit", "MockK", "Turbine", "Unit & Integration Testing", "Code Reviews", "Debugging"],
   },
   {
-    title: "Tools & DI",
+    title: "Tooling",
     brand: "android" as const,
-    items: ["Git & GitHub", "CI/CD", "Hilt", "Dagger", "Koin", "Android Studio", "Figma"],
+    items: ["Git & GitHub", "CI/CD", "Hilt", "Dagger", "Koin", "Android Studio", "Xcode", "Figma"],
   },
   {
-    title: "AI Integration",
+    title: "AI",
     brand: "kotlin" as const,
     items: ["Local LLMs (Ollama)", "Gemini API", "Groq LLM", "Whisper API"],
   },
@@ -614,7 +625,7 @@ export const awards = [
 ];
 
 /** Photos from the milestones behind the CV lines. */
-export const achievements = [
+export const achievements: { src: string; title: string; note: string; pos?: string }[] = [
   {
     src: "/achievements/iti-defence.webp",
     title: "NutriScan graduation defence",
@@ -629,6 +640,8 @@ export const achievements = [
     src: "/achievements/best-intern.webp",
     title: "Best Trainee of the Month",
     note: "Recognised at Telecom Egypt (WE) for the Breast Cancer Diagnosis Prediction Tool, 2024.",
+    // square source in a 4:3 frame — bias up so the crop keeps heads, not floor
+    pos: "50% 22%",
   },
   {
     src: "/achievements/iti-cohort.webp",
