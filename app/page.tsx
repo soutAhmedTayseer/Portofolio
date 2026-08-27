@@ -14,7 +14,7 @@ import EducationSection from "@/components/Education";
 import ExperienceSection from "@/components/Experience";
 import { SectionTitle, CenterTitle } from "@/components/Section";
 import { Brandmark } from "@/components/Brandmark";
-import { Magnetic, CountUp, RevealWords } from "@/components/Motion";
+import { Magnetic, RevealWords } from "@/components/Motion";
 import { brands } from "@/components/Logos";
 import Preloader from "@/components/Preloader";
 import WhatsAppFab from "@/components/WhatsAppFab";
@@ -23,7 +23,8 @@ import {
   projects,
   skills,
   achievements,
-  stats,
+  awards,
+  languages,
   pillars,
 } from "@/data/site";
 
@@ -111,23 +112,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* Stats strip — sits below the horizon so the hero ends at the phones */}
-        <section className="border-y border-line bg-surface/40 px-5 py-8 sm:px-6 sm:py-10">
-          <Reveal>
-            <dl className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-3">
-              {stats.map((s) => (
-                <div key={s.label} className="flex items-baseline gap-4">
-                  <dt className="font-display text-3xl font-extrabold text-accent-ink">
-                    <CountUp value={s.value} />
-                  </dt>
-                  <dd className="chip text-muted">{s.label}</dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </section>
-
-        {/* Education, awards, languages */}
+        {/* Education */}
         <EducationSection />
 
         {/* Experience */}
@@ -271,6 +256,70 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
+
+            {/* honors close out the milestones */}
+            <Reveal delay={0.1}>
+              <div className="mt-14 rounded-3xl border border-line bg-card p-7 sm:p-9">
+                <h3 className="label">Honors &amp; awards</h3>
+                <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {awards.map((a) => (
+                    <li key={a.title + a.org}>
+                      <a
+                        href={a.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group flex items-center gap-4 rounded-2xl border border-line bg-ink/50 p-4 transition-colors hover:border-accent/40 hover:bg-ink"
+                      >
+                        <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl border border-line bg-ink">
+                          <Image src={a.logo} alt={`${a.org} logo`} width={48} height={48} className="size-full object-cover" />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-semibold group-hover:text-accent-ink">{a.title}</span>
+                          <span className="block text-sm text-muted">
+                            {a.org} · {a.period}
+                          </span>
+                        </span>
+                        <span className="shrink-0 text-muted transition-colors group-hover:text-accent-ink" aria-hidden>
+                          ↗
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Languages */}
+        <section id="languages" className="border-t border-line px-5 py-16 sm:px-6 sm:py-20">
+          <div className="mx-auto max-w-3xl">
+            <Reveal>
+              <CenterTitle eyebrow="Languages" title="How I communicate" />
+            </Reveal>
+            <Reveal delay={0.05}>
+              <div className="rounded-3xl border border-line bg-card p-7 sm:p-9">
+                <ul className="space-y-6">
+                  {languages.map((l, i) => (
+                    <li key={l.name}>
+                      <div className="flex items-baseline justify-between gap-3">
+                        <span className="text-lg font-semibold">{l.name}</span>
+                        <span className="chip text-muted">{l.level}</span>
+                      </div>
+                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-line">
+                        <span
+                          className="block h-full rounded-full"
+                          style={{
+                            width: i === 0 ? "100%" : "80%",
+                            background: i === 0 ? "var(--green)" : "var(--accent)",
+                          }}
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
           </div>
         </section>
 

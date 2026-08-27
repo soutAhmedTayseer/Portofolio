@@ -379,15 +379,26 @@ export const emulators: Emulator[] = [
   { slug: "nutriscan", title: "NutriScan", brand: "kotlin", dir: "/screens/nutriscan", count: 12, ratio: 728 / 1600 },
 ];
 
-export type Demo = { title: string; url: string };
+/**
+ * `youtube` is a video id; `ratio` is the recording's real width/height, read
+ * off the source files, so the device frame matches the footage instead of
+ * letterboxing it.
+ */
+export type Demo = { title: string; youtube?: string; url?: string; ratio?: number };
 
-/** Entries without a URL aren't ready to show, so they never reach the UI. */
-export const ready = (items: Demo[] = []) => items.filter((d) => Boolean(d.url));
+const PHONE = 720 / 1280;
+const TALL = 720 / 1562;
+
+/** Entries with nothing to play aren't ready to show, so they never reach the UI. */
+export const ready = (items: Demo[] = []) => items.filter((d) => Boolean(d.youtube || d.url));
 
 /** True when a project has anything worth rendering a demo panel for. */
 export function hasDemo({ videos, liveDemos, apk }: { videos?: Demo[]; liveDemos?: Demo[]; apk?: string }) {
   return ready(videos).length > 0 || ready(liveDemos).length > 0 || Boolean(apk);
 }
+
+/** Does this project have a playable walkthrough? Used for the card badge. */
+export const hasVideo = (slug: string) => ready(caseStudy[slug]?.videos).length > 0;
 
 /**
  * Per-project case-study extras. Everything here is optional — a project with no
@@ -405,13 +416,13 @@ export const caseStudy: Record<
   pixelcast: {
     architecture:
       "Three layers, strictly separated: a data layer wrapping Retrofit and the Room DAO, a domain layer of use cases with no Android imports, and a Compose presentation layer driven by StateFlow. The repository always emits from Room first, then refreshes from OpenWeatherMap, so the UI never waits on the network.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "XgYZvBAudI0", ratio: PHONE }],
     liveDemos: [{ title: "PixelCast — Android", url: "" }],
   },
   tawseel: {
     architecture:
       "Flutter app split into customer and driver feature modules behind a shared core (network, cache, DI). The backend is a modular Node.js/TypeScript API (auth, client, captain, order and admin modules) on Drizzle ORM, with Redis for hot data and Vercel Blob for media.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "iGgi9RpK4U4", ratio: PHONE }],
     liveDemos: [{ title: "Tawseel — Android", url: "" }],
   },
   "champion-codex": {
@@ -423,19 +434,19 @@ export const caseStudy: Record<
   preperroni: {
     architecture:
       "MVP with RxJava 3 streams between presenter and view. Room holds favourites and the weekly plan locally; Firebase mirrors them per account so the plan survives a reinstall or a second device.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "63SB0dtEt_c", ratio: TALL }],
     liveDemos: [{ title: "Preperroni — Android", url: "" }],
   },
   newsly: {
     architecture:
       "A single `commonMain` module holds networking (Ktor), models (Kotlinx Serialization) and the presenter. Android renders it with Jetpack Compose, iOS with SwiftUI — neither platform duplicates business logic.",
-    videos: [{ title: "Android Demo", url: "" }, { title: "iOS Demo", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "lpjNdvXkS0o", ratio: PHONE }],
     liveDemos: [{ title: "Newsly — Android", url: "" }],
   },
   nutriscan: {
     architecture:
       "Multi-module Gradle setup: `domain`, `data` and `presentation` compile separately, wired with Koin. MVI keeps each screen a single immutable state plus a stream of intents.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "yrz8B1ighQ4", ratio: 886 / 1920 }],
     liveDemos: [{ title: "NutriScan — Android", url: "" }],
   },
   wearzone: {
@@ -465,10 +476,10 @@ export const caseStudy: Record<
     videos: [{ title: "App Walkthrough", url: "" }],
   },
   lingualeap: {
-    videos: [{ title: "LinguaLeap", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "b-8A6p53_V8", ratio: PHONE }],
   },
   quizdeck: {
-    videos: [{ title: "QuizDeck", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "8ZxaBI2wdvw", ratio: PHONE }],
   },
   xo: {
     architecture:
@@ -535,17 +546,28 @@ export const skills = [
   },
   {
     title: "Tooling",
-    brand: "android" as const,
+    brand: "tooling" as const,
     items: ["Git & GitHub", "CI/CD", "Hilt", "Dagger", "Koin", "Android Studio", "Xcode", "Figma"],
   },
   {
     title: "AI",
-    brand: "kotlin" as const,
+    brand: "ai" as const,
     items: ["Local LLMs (Ollama)", "Gemini API", "Groq LLM", "Whisper API"],
   },
 ];
 
-export const experience = [
+export type Role = {
+  role: string;
+  org: string;
+  logo: string;
+  period: string;
+  type: string;
+  points: string[];
+  /** true while the role is ongoing — colours the card green instead of blue */
+  current?: boolean;
+};
+
+export const experience: Role[] = [
   {
     role: "Flutter Developer (Contract)",
     org: "MaVoid",
@@ -653,10 +675,4 @@ export const achievements: { src: string; title: string; note: string; pos?: str
 export const languages = [
   { name: "Arabic", level: "Native speaker" },
   { name: "English", level: "Professional working level" },
-];
-
-export const stats = [
-  { value: "10+", label: "Apps shipped solo, in teams and under contract" },
-  { value: "4", label: "Stacks: Android, Flutter, KMP, iOS" },
-  { value: "9 mo", label: "ITI native mobile diploma" },
 ];

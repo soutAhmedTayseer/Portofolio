@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import { CenterTitle } from "./Section";
-import { education, awards, languages } from "@/data/site";
+import { education } from "@/data/site";
 
 export default function EducationSection() {
   return (
@@ -9,14 +9,13 @@ export default function EducationSection() {
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <CenterTitle
-            eyebrow="Education & recognition"
-            title="Training, degrees and awards"
-            sub="A computer science degree, an intensive native-mobile diploma, and the recognition along the way."
+            eyebrow="Education"
+            title="Training and degrees"
+            sub="A computer science degree and an intensive native-mobile diploma under the Ministry of Communications."
           />
         </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-          {/* timeline rail */}
+        {/* timeline rail */}
           <div className="relative space-y-6 sm:pl-12">
             <span
               className="absolute left-[13px] top-4 bottom-4 hidden w-[2px] rounded-full opacity-50 sm:block"
@@ -72,63 +71,6 @@ export default function EducationSection() {
             })}
           </div>
 
-          <div className="space-y-6">
-            <Reveal delay={0.05}>
-              <div className="rounded-3xl border border-line bg-card p-7">
-                <h3 className="label">Honors &amp; awards</h3>
-                <ul className="mt-5 space-y-3">
-                  {awards.map((a) => (
-                    <li key={a.title + a.org}>
-                      <a
-                        href={a.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex items-start gap-3 rounded-xl p-2 transition-colors hover:bg-ink"
-                      >
-                        <span className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-xl border border-line bg-ink">
-                          <Image src={a.logo} alt={`${a.org} logo`} width={44} height={44} className="size-full object-cover" />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block text-sm font-semibold group-hover:text-accent-ink">{a.title}</span>
-                          <span className="block text-sm text-muted">{a.org}</span>
-                          <span className="chip mt-1 block text-muted">{a.period}</span>
-                        </span>
-                        <span className="shrink-0 text-muted transition-colors group-hover:text-accent-ink" aria-hidden>
-                          ↗
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <div className="rounded-3xl border border-line bg-card p-7">
-                <h3 className="label">Languages</h3>
-                <ul className="mt-5 space-y-5">
-                  {languages.map((l, i) => (
-                    <li key={l.name}>
-                      <div className="flex items-baseline justify-between gap-3 text-sm">
-                        <span className="font-semibold">{l.name}</span>
-                        <span className="chip text-muted">{l.level}</span>
-                      </div>
-                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-line">
-                        <span
-                          className="block h-full rounded-full"
-                          style={{
-                            width: i === 0 ? "100%" : "80%",
-                            background: i === 0 ? "var(--green)" : "var(--accent)",
-                          }}
-                        />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
-        </div>
       </div>
     </section>
   );

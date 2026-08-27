@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { brands, type BrandKey } from "./Logos";
+import { brands, PLATFORMS, type BrandKey } from "./Logos";
 
 type Group = { title: string; items: string[]; brand?: BrandKey };
 
 export default function Stack({ groups }: { groups: Group[] }) {
-  const marquee = [...Object.keys(brands), ...Object.keys(brands)] as BrandKey[];
+  const marquee = [...PLATFORMS, ...PLATFORMS];
 
   return (
     <>

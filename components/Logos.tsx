@@ -86,7 +86,44 @@ export function AppleMark({ className = "size-6" }: { className?: string }) {
   );
 }
 
-export type BrandKey = "android" | "flutter" | "dart" | "kotlin" | "java" | "compose" | "retrofit" | "swift" | "apple";
+/** Wrench + gear, for the tooling group. */
+export function ToolingMark({ className = "size-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M14.7 6.3a4 4 0 0 0 5.1 5.1l-8.4 8.4a2.5 2.5 0 0 1-3.5-3.5l8.4-8.4Z" />
+      <path d="M14.7 6.3 17 4a4 4 0 0 1 3 6.8" />
+      <circle cx="9" cy="17.5" r=".6" fill="currentColor" />
+      <path d="M6.5 3.5v3M5 5h3" />
+    </svg>
+  );
+}
+
+/** Sparkle, for the AI group. */
+export function AiMark({ className = "size-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
+      <path d="M12 2.5 13.7 8 19 9.7 13.7 11.4 12 17l-1.7-5.6L5 9.7 10.3 8 12 2.5Z" />
+      <path d="M18.5 14.5l.85 2.65L22 18l-2.65.85L18.5 21.5l-.85-2.65L15 18l2.65-.85.85-2.65Z" opacity=".7" />
+      <path d="M5.5 14l.7 2.1L8.3 16.8l-2.1.7L5.5 19.6l-.7-2.1L2.7 16.8l2.1-.7L5.5 14Z" opacity=".45" />
+    </svg>
+  );
+}
+
+export type BrandKey =
+  | "android"
+  | "flutter"
+  | "dart"
+  | "kotlin"
+  | "java"
+  | "compose"
+  | "retrofit"
+  | "swift"
+  | "apple"
+  | "tooling"
+  | "ai";
+
+/** Platforms and languages only — this is what the ticker cycles through. */
+export const PLATFORMS: BrandKey[] = ["kotlin", "android", "compose", "flutter", "dart", "swift", "apple", "java", "retrofit"];
 
 export const brands: Record<BrandKey, { label: string; color: string; Mark: (p: { className?: string }) => React.JSX.Element }> = {
   android: { label: "Android", color: "#3DDC84", Mark: AndroidMark },
@@ -98,4 +135,6 @@ export const brands: Record<BrandKey, { label: string; color: string; Mark: (p: 
   retrofit: { label: "Retrofit", color: "#3ec6c6", Mark: RetrofitMark },
   swift: { label: "Swift", color: "#f05138", Mark: SwiftMark },
   apple: { label: "iOS", color: "#e8eef7", Mark: AppleMark },
+  tooling: { label: "Tooling", color: "#8b9bb4", Mark: ToolingMark },
+  ai: { label: "AI", color: "#a78bfa", Mark: AiMark },
 };

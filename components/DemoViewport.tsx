@@ -69,20 +69,37 @@ export default function DemoViewport({
       </h3>
 
       <div className="relative mx-auto w-full max-w-[330px]">
-          <div className="relative aspect-[9/19.5] overflow-hidden rounded-[2.2rem] border-[8px] border-[#0a0a0d] bg-[#141419] device-shadow">
+          {/* The frame takes the recording's own aspect ratio, so the footage
+              fills the screen like a running device instead of letterboxing. */}
+          <div
+            className="relative overflow-hidden rounded-[2.2rem] border-[8px] border-[#0a0a0d] bg-[#141419] device-shadow"
+            style={{ aspectRatio: (active === "video" ? video.ratio : demo.ratio) ?? 9 / 19.5 }}
+          >
             <div className="relative h-full w-full overflow-hidden rounded-[1.7rem] bg-black">
               {active === "video" ? (
-                <video
-                  key={video.url}
-                  src={video.url}
-                  className="h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  controls
-                  preload="metadata"
-                />
+                video.youtube ? (
+                  <iframe
+                    key={video.youtube}
+                    src={`https://www.youtube-nocookie.com/embed/${video.youtube}?rel=0&modestbranding=1&playsinline=1&loop=1&playlist=${video.youtube}`}
+                    title={`${title} — ${video.title}`}
+                    className="h-full w-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                ) : (
+                  <video
+                    key={video.url}
+                    src={video.url}
+                    className="h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls
+                    preload="metadata"
+                  />
+                )
               ) : (
                 <iframe
                   key={demo.url}

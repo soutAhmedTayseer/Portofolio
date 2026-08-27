@@ -3,7 +3,12 @@ import Reveal from "./Reveal";
 import { CenterTitle } from "./Section";
 import { experience } from "@/data/site";
 
-const ACCENTS = ["var(--accent)", "var(--green)", "var(--hot)", "var(--warm)"];
+/**
+ * Colour carries meaning rather than decoration: green marks a role I'm still
+ * in, blue marks one that's finished. Right now everything is finished.
+ */
+const CURRENT = "var(--green)";
+const DONE = "var(--accent)";
 
 export default function ExperienceSection() {
   return (
@@ -26,7 +31,7 @@ export default function ExperienceSection() {
           />
 
           {experience.map((e, i) => {
-            const tint = ACCENTS[i % ACCENTS.length];
+            const tint = e.current ? CURRENT : DONE;
             return (
               <Reveal key={`${e.org}-${e.role}`} delay={i * 0.05}>
                 <div className="relative">
@@ -65,9 +70,10 @@ export default function ExperienceSection() {
                       </div>
 
                       <span
-                        className="chip shrink-0 self-start rounded-full border px-3 py-1.5"
+                        className="chip flex shrink-0 items-center gap-2 self-start rounded-full border px-3 py-1.5"
                         style={{ borderColor: `color-mix(in srgb, ${tint} 40%, transparent)`, color: tint }}
                       >
+                        {e.current && <span className="size-1.5 rounded-full" style={{ background: tint }} />}
                         {e.period}
                       </span>
                     </div>
