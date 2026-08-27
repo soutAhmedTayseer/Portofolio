@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -9,54 +9,63 @@ import { brands } from "./Logos";
 
 const DELAY = 3000;
 const SLOTS = 3;
+const CENTER = 1;
 
 const reel = (dir: string, count: number) =>
   Array.from({ length: count }, (_, i) => `${dir}/${String(i + 1).padStart(2, "0")}.webp`);
 
 /**
- * One phone playing its screenshot reel. `offset` staggers the slots so the
- * three devices don't all flip on the same beat.
+ * One phone. Only the centre device plays its reel — the flanking two hold
+ * their first frame until you bring them into the middle, so we're not
+ * decoding three streams of screenshots at once.
  */
-function Device({ emu, offset, priority }: { emu: Emulator; offset: number; priority: boolean }) {
+function Device({ emu, focused, priority }: { emu: Emulator; focused: boolean; priority: boolean }) {
   const shots = useMemo(() => reel(emu.dir, emu.count), [emu.dir, emu.count]);
-  const [i, setI] = useState(0);
   const reduce = useReducedMotion();
 
-  useEffect(() => {
-    setI(0);
-    if (reduce || shots.length < 2) return;
-    let iv: ReturnType<typeof setInterval>;
-    const t = setTimeout(() => {
-      setI((v) => (v + 1) % shots.length);
-      iv = setInterval(() => setI((v) => (v + 1) % shots.length), DELAY);
-    }, DELAY + offset);
-    return () => {
-      clearTimeout(t);
-      clearInterval(iv);
-    };
-  }, [shots, reduce, offset]);
+  // Each new frame is pushed on top and fades in over the previous one, which
+  // stays fully opaque underneath until the fade finishes. AnimatePresence was
+  // leaving stale layers behind here and the phone flashed black; this way the
+  // worst case is a frame that never fades in, still showing the last good one.
+  const [stack, setStack] = useState(() => [{ src: shots[0], id: 0, n: 0 }]);
+  const idx = useRef(0);
+  const nextId = useRef(1);
 
-  const src = shots[i];
+  useEffect(() => {
+    idx.current = 0;
+    nextId.current = 1;
+    setStack([{ src: shots[0], id: 0, n: 0 }]);
+    if (!focused || reduce || shots.length < 2) return;
+    const iv = setInterval(() => {
+      idx.current = (idx.current + 1) % shots.length;
+      // keep at most two layers: the settled one plus the incoming fade. The
+      // previous fade finished 2.5s ago, so dropping the rest is invisible.
+      setStack((s) => [...s.slice(-1), { src: shots[idx.current], id: nextId.current++, n: idx.current }]);
+    }, DELAY);
+    return () => clearInterval(iv);
+  }, [shots, focused, reduce]);
+
   const screen = (
-    <AnimatePresence initial={false}>
-      <motion.div
-        key={src}
-        className="absolute inset-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: reduce ? 0 : 0.45 }}
-      >
-        <Image
-          src={src}
-          alt={`${emu.title} — screen ${i + 1} of ${shots.length}`}
-          fill
-          sizes="(max-width: 640px) 32vw, 380px"
-          priority={priority && i === 0}
-          className={emu.framed ? "object-contain" : "object-cover"}
-        />
-      </motion.div>
-    </AnimatePresence>
+    <>
+      {stack.map((layer, pos) => (
+        <motion.div
+          key={layer.id}
+          className="absolute inset-0"
+          initial={pos === 0 ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduce ? 0 : 0.5 }}
+        >
+          <Image
+            src={layer.src}
+            alt={focused ? `${emu.title} — screen ${layer.n + 1} of ${shots.length}` : emu.title}
+            fill
+            sizes="(max-width: 640px) 40vw, 340px"
+            priority={priority && layer.id === 0}
+            className={emu.framed ? "object-contain" : "object-cover"}
+          />
+        </motion.div>
+      ))}
+    </>
   );
 
   // Pre-framed mockups carry their own bezel — don't wrap them in a second one.
@@ -82,9 +91,7 @@ function Arrow({ dir, onClick }: { dir: "left" | "right"; onClick: () => void })
   return (
     <button
       onClick={onClick}
-      aria-label={dir === "left" ? "Previous apps" : "Next apps"}
-      // sat at top-1/2 the arrows landed ~1100px down the page, below the fold
-      // on a laptop — high on the row keeps them reachable without scrolling
+      aria-label={dir === "left" ? "Previous app" : "Next app"}
       className={`absolute top-[30%] z-30 grid size-9 -translate-y-1/2 place-items-center rounded-full border border-line bg-card/90 text-muted backdrop-blur transition-colors hover:border-accent/50 hover:text-accent-ink sm:size-11 ${
         dir === "left" ? "left-0 sm:left-4" : "right-0 sm:right-4"
       }`}
@@ -98,43 +105,65 @@ function Arrow({ dir, onClick }: { dir: "left" | "right"; onClick: () => void })
 
 export default function DeviceStack() {
   const [[start, dir], setState] = useState<[number, number]>([0, 1]);
+  const [dragging, setDragging] = useState(false);
   const reduce = useReducedMotion();
   const n = emulators.length;
 
   const go = useCallback((step: number) => setState(([s]) => [(s + step + n) % n, step]), [n]);
 
   const tilt = ["float-tilt-a", "float-tilt-b", "float-tilt-c"];
-  const shift = ["sm:-translate-y-4", "sm:translate-y-3", "sm:-translate-y-2"];
 
   return (
     <div className="relative w-full px-3 sm:px-16">
       <Arrow dir="left" onClick={() => go(-1)} />
       <Arrow dir="right" onClick={() => go(1)} />
 
-      <div className="flex w-full items-end justify-center gap-3 sm:gap-8">
+      <motion.div
+        className="flex w-full touch-pan-y items-end justify-center gap-2 sm:gap-6"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.14}
+        dragMomentum={false}
+        onDragStart={() => setDragging(true)}
+        onDragEnd={(_, info) => {
+          setDragging(false);
+          if (info.offset.x < -55) go(1);
+          else if (info.offset.x > 55) go(-1);
+        }}
+      >
         {Array.from({ length: SLOTS }, (_, slot) => {
           const emu = emulators[(start + slot) % n];
           const brand = brands[emu.brand];
+          const centre = slot === CENTER;
 
           return (
-            <div key={slot} className={`w-1/3 max-w-[320px] ${shift[slot]}`}>
+            <div
+              key={slot}
+              className={
+                centre
+                  ? "z-10 w-[40%] max-w-[340px]"
+                  : "w-[28%] max-w-[236px] opacity-70 sm:-translate-y-2"
+              }
+            >
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={emu.slug}
-                  initial={reduce ? false : { opacity: 0, x: dir * 40 }}
+                  initial={reduce ? false : { opacity: 0, x: dir * 36 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={reduce ? undefined : { opacity: 0, x: dir * -40 }}
+                  exit={reduce ? undefined : { opacity: 0, x: dir * -36 }}
                   transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className={`device-shadow ${tilt[slot]}`}>
-                    <Device emu={emu} offset={slot * 700} priority={slot === 0} />
+                    <Device emu={emu} focused={centre} priority={centre} />
                   </div>
                   <Link
                     href={`/projects/${emu.slug}`}
+                    // a swipe ends on a child element, so suppress the click it fires
+                    onClick={(e) => dragging && e.preventDefault()}
                     className="mt-3 flex items-center justify-center gap-1.5 transition-colors hover:text-accent-ink"
                   >
                     <span style={{ color: brand.color }}>
-                      <brand.Mark className="size-3.5" />
+                      <brand.Mark className={centre ? "size-4" : "size-3"} />
                     </span>
                     <span className="chip text-muted">{emu.title}</span>
                   </Link>
@@ -143,7 +172,7 @@ export default function DeviceStack() {
             </div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
