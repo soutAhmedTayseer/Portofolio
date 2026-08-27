@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import CvViewer from "@/components/CvViewer";
-import { Brandmark } from "@/components/Brandmark";
 import { profile, experience, education, awards, skills, languages } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -43,7 +43,13 @@ export default function CvPage() {
 
         <header className="mb-10 flex flex-col items-start justify-between gap-6 rounded-3xl border border-line bg-card p-7 sm:flex-row sm:items-center sm:p-9">
           <div className="flex items-center gap-4">
-            <Brandmark className="size-14" />
+            <Image
+              src={profile.avatarAlt}
+              alt={profile.name}
+              width={72}
+              height={72}
+              className="size-16 shrink-0 rounded-2xl border border-line object-cover sm:size-[72px]"
+            />
             <div>
               <h1 className="text-2xl font-extrabold sm:text-3xl">{profile.name}</h1>
               <p className="mt-1 text-sm text-muted">{profile.role}</p>

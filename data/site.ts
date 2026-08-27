@@ -2,13 +2,14 @@ export const profile = {
   name: "Ahmed Tayseer Fawzy",
   shortName: "Ahmed Tayseer",
   initials: "AT",
-  role: "Junior Android Developer | Flutter Cross-Platform",
+  role: "Android & Flutter Developer | Kotlin Multiplatform & iOS",
   headline: "I build native Android & cross-platform mobile apps",
   hero:
-    "Junior Android Developer with a Computer Science degree and hands-on Flutter experience. I build native Android apps with Kotlin and Jetpack Compose, and cross-platform apps with Flutter and Dart — using Clean Architecture, MVVM/MVI and dependency injection.",
+    "Mobile developer with a Computer Science degree. Android with Kotlin and Jetpack Compose and Flutter with Dart are where I'm strongest, and I extend that across Kotlin Multiplatform, Compose Multiplatform and native iOS in Swift and SwiftUI — all on Clean Architecture, MVVM/MVI and dependency injection.",
   summary:
-    "Junior Android Developer with a Bachelor's degree in Computer Science and hands-on Flutter cross-platform experience. Comfortable with REST APIs, Firebase and local persistence (Room, SQLite), with exposure to Kotlin Multiplatform and CI/CD. Shipped a portfolio of 10+ apps solo, in teams, and under contract.",
-  avatar: "https://avatars.githubusercontent.com/u/122810273?v=4",
+    "Mobile developer with a Bachelor's degree in Computer Science. Android (Kotlin, Jetpack Compose) and Flutter are my core, backed by shipped work in Kotlin Multiplatform, Compose Multiplatform and native iOS with Swift, SwiftUI and CoreData. Comfortable with REST APIs, Firebase, local persistence (Room, SQLite, Hive) and CI/CD. Shipped a portfolio of 10+ apps solo, in teams, and under contract.",
+  avatar: "/profile.webp",
+  avatarAlt: "/profile-2.webp",
   email: "ahmedtayseer424@gmail.com",
   phone: "+20 111 945 0425",
   phoneRaw: "+201119450425",
@@ -31,8 +32,12 @@ export const pillars = [
     body: "One Dart codebase shipping to both stores, with Cubit/Bloc state management, Firebase or a custom backend, and offline-first sync that survives a dead connection.",
   },
   {
+    title: "Kotlin Multiplatform",
+    body: "One commonMain module holding networking, models and presentation logic, with Compose Multiplatform on Android and SwiftUI on iOS — business logic written once, neither platform duplicating it.",
+  },
+  {
     title: "iOS",
-    body: "Swift and SwiftUI apps with MVP architecture, Alamofire networking and CoreData persistence — kept in sync with a shared Kotlin Multiplatform core when the project calls for it.",
+    body: "Native Swift apps shipped end to end: MVP with UIKit and compositional layouts, Alamofire networking, CoreData for offline data, and SwiftUI where a shared Kotlin core drives the screens.",
   },
 ];
 
@@ -567,8 +572,7 @@ export const experience = [
   {
     role: "React Mentor",
     org: "Semi Colon Civil Work",
-    logo: "/logos/orgs/semicolon.jpg",
-    logo2: "/logos/orgs/react.png",
+    logo: "/logos/orgs/react.png",
     period: "Jun 2023 — Oct 2023",
     type: "Volunteering",
     points: ["Mentored 20+ students in web development fundamentals including HTML, CSS and React."],
@@ -606,6 +610,30 @@ export const awards = [
     period: "Aug 2024",
     logo: "/logos/orgs/telecom-egypt.png",
     link: "https://lnkd.in/p/es8AdkQK",
+  },
+];
+
+/** Photos from the milestones behind the CV lines. */
+export const achievements = [
+  {
+    src: "/achievements/iti-defence.webp",
+    title: "NutriScan graduation defence",
+    note: "Demoing the food scanner and AI assistant to the ITI examiners — Information Technology Institute, 2026.",
+  },
+  {
+    src: "/achievements/faculty-grad.webp",
+    title: "DocDesk final year project",
+    note: "Medical Clinic Management System, graded Excellent with Honors — Alexandria University, Faculty of Science, 2025.",
+  },
+  {
+    src: "/achievements/best-intern.webp",
+    title: "Best Trainee of the Month",
+    note: "Recognised at Telecom Egypt (WE) for the Breast Cancer Diagnosis Prediction Tool, 2024.",
+  },
+  {
+    src: "/achievements/iti-cohort.webp",
+    title: "Bridging Talents to Industry",
+    note: "The ITI native mobile development cohort at Smart Village — nine months of building alongside these people.",
   },
 ];
 

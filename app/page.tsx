@@ -21,6 +21,7 @@ import {
   experience,
   education,
   awards,
+  achievements,
   languages,
   stats,
   pillars,
@@ -225,13 +226,21 @@ export default function Home() {
                   saw, and test the parts that break.
                 </p>
                 <p>
+                  Android and Flutter are where I&apos;m strongest, but I don&apos;t stop at the Android side of a
+                  codebase. I&apos;ve shipped a Kotlin Multiplatform reader sharing one core between Compose and
+                  SwiftUI, and built Sportiva natively in Swift — MVP over UIKit with Alamofire and CoreData, past 90%
+                  unit test coverage. When a project needs iOS, I write it rather than hand it off.
+                </p>
+                <p>
                   I debug and resolve issues quickly, value code reviews, and I&apos;m eager to keep learning from
                   senior developers.
                 </p>
               </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 {pillars.map((c, i) => {
-                  const tint = [brands.android.color, brands.flutter.color, brands.swift.color][i] ?? brands.android.color;
+                  const tint =
+                    [brands.android.color, brands.flutter.color, brands.kotlin.color, brands.swift.color][i] ??
+                    brands.android.color;
                   return (
                     <div
                       key={c.title}
@@ -280,9 +289,6 @@ export default function Home() {
                         <Image src={e.logo} alt={`${e.org} logo`} width={20} height={20} className="size-5 rounded-md object-contain" />
                       )}
                       {e.org}
-                      {"logo2" in e && e.logo2 && (
-                        <Image src={e.logo2} alt="React logo" width={20} height={20} className="size-5 rounded-md object-contain" />
-                      )}
                       <span className="rounded-md border border-line px-2 py-0.5 text-xs text-muted">{e.type}</span>
                     </p>
                     <ul className="mt-4 space-y-2 text-sm text-muted">
@@ -403,6 +409,40 @@ export default function Home() {
                   </div>
                 </Reveal>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Milestones */}
+        <section id="milestones" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+          <div className="mx-auto max-w-6xl">
+            <Reveal>
+              <CenterTitle
+                eyebrow="Milestones"
+                title="The moments behind the lines"
+                sub="Project defences, graduations and the people I built alongside."
+              />
+            </Reveal>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {achievements.map((a, i) => (
+                <Reveal key={a.src} delay={(i % 2) * 0.06}>
+                  <figure className="group h-full overflow-hidden rounded-2xl border border-line bg-card transition-transform hover:-translate-y-1">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-ink">
+                      <Image
+                        src={a.src}
+                        alt={a.title}
+                        fill
+                        sizes="(max-width: 640px) 92vw, 560px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    </div>
+                    <figcaption className="p-6">
+                      <h3 className="font-semibold">{a.title}</h3>
+                      <p className="mt-1.5 text-sm text-muted">{a.note}</p>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
             </div>
           </div>
         </section>

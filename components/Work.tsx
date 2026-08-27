@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
@@ -15,10 +16,17 @@ function GitHubIcon() {
   );
 }
 
+const INITIAL = 5;
+
 export default function Work({ projects }: { projects: Project[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const shown = expanded ? projects : projects.slice(0, INITIAL);
+  const hidden = projects.length - INITIAL;
+
   return (
+    <>
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {projects.map((p, i) => (
+      {shown.map((p, i) => (
         <Reveal key={p.slug} delay={(i % 3) * 0.06}>
           <TiltCard className="h-full rounded-3xl">
           <Link
@@ -95,5 +103,32 @@ export default function Work({ projects }: { projects: Project[] }) {
         </Reveal>
       ))}
     </div>
+
+    {hidden > 0 && (
+      <div className="mt-12 flex justify-center">
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className="group inline-flex items-center gap-2.5 rounded-xl border border-line bg-card px-6 py-3.5 text-sm font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
+        >
+          {expanded ? "Show fewer projects" : `Show ${hidden} more projects`}
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
+            aria-hidden
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+      </div>
+    )}
+    </>
   );
 }
