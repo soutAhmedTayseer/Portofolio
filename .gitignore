@@ -9,3 +9,7 @@ next-env.d.ts
 
 # raw screenshot sources (converted into public/screens)
 .design-src/
+
+# raw screenshot drops (convert into public/screens before use)
+captain/
+client/
