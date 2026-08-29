@@ -389,6 +389,7 @@ export type Demo = { title: string; youtube?: string; url?: string; ratio?: numb
 
 const PHONE = 720 / 1280;
 const TALL = 720 / 1562;
+const WIDE = 16 / 9;
 
 /** Entries with nothing to play aren't ready to show, so they never reach the UI. */
 export const ready = (items: Demo[] = []) => items.filter((d) => Boolean(d.youtube || d.url));
@@ -485,7 +486,7 @@ export const caseStudy: Record<
   xo: {
     architecture:
       "A thread-per-client Java server handles matchmaking and game state, with accounts secured via SHA-256 hashing over Apache Derby storage. The client speaks to it over sockets and falls back to a local Minimax engine for single-player matches, with every move logged to JSON for full match replay.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "KrGuylFvQiw", ratio: WIDE }],
   },
 };
 

@@ -10,11 +10,14 @@ export default function DemoViewport({
   liveDemos = [],
   apk,
   title,
+  desktop = false,
 }: {
   videos?: Demo[];
   liveDemos?: Demo[];
   apk?: string;
   title: string;
+  /** Desktop apps get a laptop-lid frame instead of the phone bezel. */
+  desktop?: boolean;
 }) {
   const clips = ready(videos);
   const demos = ready(liveDemos);
@@ -68,14 +71,18 @@ export default function DemoViewport({
         {active === "video" ? "Video walkthrough playback" : "Live emulator viewport"}
       </h3>
 
-      <div className="relative mx-auto w-full max-w-[330px]">
+      <div className={`relative mx-auto w-full ${desktop ? "max-w-[620px]" : "max-w-[330px]"}`}>
           {/* The frame takes the recording's own aspect ratio, so the footage
               fills the screen like a running device instead of letterboxing. */}
           <div
-            className="relative overflow-hidden rounded-[2.2rem] border-[8px] border-[#0a0a0d] bg-[#141419] device-shadow"
-            style={{ aspectRatio: (active === "video" ? video.ratio : demo.ratio) ?? 9 / 19.5 }}
+            className={
+              desktop
+                ? "relative overflow-hidden rounded-t-xl rounded-b-sm border-[10px] border-b-[18px] border-[#0a0a0d] bg-[#141419] device-shadow"
+                : "relative overflow-hidden rounded-[2.2rem] border-[8px] border-[#0a0a0d] bg-[#141419] device-shadow"
+            }
+            style={{ aspectRatio: (active === "video" ? video.ratio : demo.ratio) ?? (desktop ? 16 / 9 : 9 / 19.5) }}
           >
-            <div className="relative h-full w-full overflow-hidden rounded-[1.7rem] bg-black">
+            <div className={`relative h-full w-full overflow-hidden bg-black ${desktop ? "rounded-md" : "rounded-[1.7rem]"}`}>
               {active === "video" ? (
                 video.youtube ? (
                   <iframe
@@ -112,6 +119,13 @@ export default function DemoViewport({
               )}
             </div>
           </div>
+
+          {/* laptop base — a wedge under the lid so the desktop frame reads as a machine, not a TV */}
+          {desktop && (
+            <div className="mx-auto h-3 w-[112%] -translate-x-[5.4%] rounded-b-xl bg-gradient-to-b from-[#0a0a0d] to-[#1b1b21] shadow-[0_18px_30px_rgba(2,5,12,0.55)]">
+              <div className="mx-auto h-1.5 w-24 rounded-b-md bg-[#0a0a0d]" />
+            </div>
+          )}
 
           {/* variant switcher */}
           {active === "video" && clips.length > 1 && (

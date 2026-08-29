@@ -144,6 +144,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 liveDemos={extra.liveDemos}
                 apk={extra.apk}
                 title={project.title}
+                desktop={project.platform.includes("Desktop")}
               />
             )}
 
