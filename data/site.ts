@@ -390,7 +390,7 @@ export type Demo = { title: string; youtube?: string; url?: string; ratio?: numb
 const PHONE = 720 / 1280;
 const TALL = 720 / 1562;
 const WIDE = 16 / 9;
-const IOS = 1179 / 2556;
+const SHORT = 9 / 16;
 
 /** Entries with nothing to play aren't ready to show, so they never reach the UI. */
 export const ready = (items: Demo[] = []) => items.filter((d) => Boolean(d.youtube || d.url));
@@ -483,7 +483,7 @@ export const caseStudy: Record<
   },
   sportiva: {
     architecture: "MVP in Swift with Alamofire for networking and CoreData for offline favourites, covered by unit tests above 90%.",
-    videos: [{ title: "iOS Simulator Walkthrough", youtube: "BF7k3mrSkhc", ratio: IOS }],
+    videos: [{ title: "iOS Simulator Walkthrough", youtube: "BF7k3mrSkhc", ratio: SHORT }],
   },
   lingualeap: {
     videos: [{ title: "App Walkthrough", youtube: "b-8A6p53_V8", ratio: PHONE }],
