@@ -448,7 +448,14 @@ export const caseStudy: Record<
   nutriscan: {
     architecture:
       "Multi-module Gradle setup: `domain`, `data` and `presentation` compile separately, wired with Koin. MVI keeps each screen a single immutable state plus a stream of intents.",
-    videos: [{ title: "App Walkthrough", youtube: "yrz8B1ighQ4", ratio: 886 / 1920 }],
+    videos: [
+      {
+        title: "App Walkthrough",
+        // Google Drive file (the YouTube upload is unavailable) — rendered via its /preview player.
+        url: "https://drive.google.com/file/d/1bQr2lka1xY29C8ITIwhJlQej4UzK0XrA/preview",
+        ratio: 886 / 1920,
+      },
+    ],
     liveDemos: [{ title: "NutriScan — Android", url: "" }],
   },
   wearzone: {

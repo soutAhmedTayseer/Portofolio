@@ -95,6 +95,16 @@ export default function DemoViewport({
                     allowFullScreen
                     loading="lazy"
                   />
+                ) : video.url?.includes("drive.google.com") ? (
+                  <iframe
+                    key={video.url}
+                    src={video.url}
+                    title={`${title} — ${video.title}`}
+                    className="h-full w-full border-0"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowFullScreen
+                    loading="lazy"
+                  />
                 ) : (
                   <video
                     key={video.url}
