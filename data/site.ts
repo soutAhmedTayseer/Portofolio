@@ -377,6 +377,7 @@ export const emulators: Emulator[] = [
   { slug: "tawseel", title: "Tawseel", brand: "flutter", dir: "/screens/tawseel", count: 20, ratio: 1080 / 2400 },
   { slug: "sportiva", title: "Sportiva", brand: "swift", dir: "/screens/sportiva", count: 9, ratio: 1179 / 2556 },
   { slug: "nutriscan", title: "NutriScan", brand: "kotlin", dir: "/screens/nutriscan", count: 12, ratio: 728 / 1600 },
+  { slug: "champion-codex", title: "Champion Codex", brand: "kotlin", dir: "/screens/lol-guide", count: 30, ratio: 1080 / 2400 },
 ];
 
 /**
