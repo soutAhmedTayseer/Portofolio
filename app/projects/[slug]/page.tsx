@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import DemoViewport from "@/components/DemoViewport";
 import ThemeToggle from "@/components/ThemeToggle";
+import { GitHubMark, WhatsAppMark } from "@/components/SocialIcons";
 import { projects, caseStudy, profile, hasDemo } from "@/data/site";
 
 export function generateStaticParams() {
@@ -70,8 +71,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   href={project.repo}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-xl border border-line px-5 py-3 text-[13px] font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
+                  className="inline-flex items-center gap-2 rounded-xl border border-line px-5 py-3 text-[13px] font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
                 >
+                  <GitHubMark className="size-4" />
                   GitHub ↗
                 </a>
               )}
@@ -81,8 +83,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   href={r.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-xl border border-line px-5 py-3 text-[13px] font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
+                  className="inline-flex items-center gap-2 rounded-xl border border-line px-5 py-3 text-[13px] font-semibold transition-colors hover:border-accent/50 hover:text-accent-ink"
                 >
+                  <GitHubMark className="size-4" />
                   {r.label} ↗
                 </a>
               ))}
@@ -168,7 +171,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <Link href="/#work" className="hover:text-accent-ink">
             ← All projects
           </Link>
-          <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="hover:text-accent-ink">
+          <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-accent-ink">
+            <WhatsAppMark className="size-4" />
             Questions about this build? Message me →
           </a>
         </div>

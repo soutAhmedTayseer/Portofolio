@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "@/components/ThemeToggle";
 import CvViewer from "@/components/CvViewer";
+import { GitHubMark, LinkedInMark, MailMark, WhatsAppMark } from "@/components/SocialIcons";
 import { profile, experience, education, awards, skills, languages } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -85,13 +86,16 @@ export default function CvPage() {
           <Card title="Profile">
             <p className="mt-5 text-sm leading-relaxed text-muted">{profile.summary}</p>
             <div className="mt-5 flex flex-wrap gap-3 text-sm">
-              <a href={`mailto:${profile.email}`} className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                <MailMark className="size-4" />
                 {profile.email}
               </a>
-              <a href={profile.github} target="_blank" rel="noreferrer" className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+              <a href={profile.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                <GitHubMark className="size-4" />
                 GitHub
               </a>
-              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink">
+                <LinkedInMark className="size-4" />
                 LinkedIn
               </a>
             </div>
@@ -187,7 +191,8 @@ export default function CvPage() {
           <Link href="/#work" className="hover:text-accent-ink">
             ← See the projects
           </Link>
-          <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="hover:text-accent-ink">
+          <a href={profile.whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-accent-ink">
+            <WhatsAppMark className="size-4" />
             Message me on WhatsApp →
           </a>
         </div>

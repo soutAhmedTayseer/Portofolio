@@ -16,6 +16,7 @@ import { SectionTitle, CenterTitle } from "@/components/Section";
 import { Brandmark } from "@/components/Brandmark";
 import { Magnetic, RevealWords } from "@/components/Motion";
 import { brands } from "@/components/Logos";
+import { GitHubMark, LinkedInMark, WhatsAppMark, PhoneMark } from "@/components/SocialIcons";
 import Preloader from "@/components/Preloader";
 import WhatsAppFab from "@/components/WhatsAppFab";
 import {
@@ -83,8 +84,9 @@ export default function Home() {
                   href={profile.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-lg border border-line px-6 py-3 text-sm font-medium transition-colors hover:border-accent/50 hover:text-accent-ink"
+                  className="inline-flex items-center gap-2 rounded-lg border border-line px-6 py-3 text-sm font-medium transition-colors hover:border-accent/50 hover:text-accent-ink"
                 >
+                  <WhatsAppMark className="size-4" />
                   WhatsApp
                 </a>
               </div>
@@ -339,13 +341,16 @@ export default function Home() {
                   href={profile.whatsapp}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between rounded-xl border border-line bg-card p-5 transition-colors hover:border-accent/50"
+                  className="flex items-center justify-between gap-4 rounded-xl border border-line bg-card p-5 transition-colors hover:border-accent/50"
                 >
-                  <span>
-                    <span className="block text-xs uppercase tracking-wider text-muted">Call / WhatsApp</span>
-                    <span className="mt-1 block font-medium">{profile.phone}</span>
+                  <span className="flex items-center gap-3">
+                    <WhatsAppMark className="size-5 shrink-0 text-accent-ink" />
+                    <span>
+                      <span className="block text-xs uppercase tracking-wider text-muted">Call / WhatsApp</span>
+                      <span className="mt-1 block font-medium">{profile.phone}</span>
+                    </span>
                   </span>
-                  <span className="text-sm text-accent-ink">Chat instantly →</span>
+                  <span className="whitespace-nowrap text-sm text-accent-ink">Chat instantly →</span>
                 </a>
                 <a
                   href={`mailto:${profile.email}`}
@@ -362,28 +367,31 @@ export default function Home() {
                     href={profile.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
+                    className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
                   >
+                    <GitHubMark className="size-4" />
                     GitHub
                   </a>
                   <a
                     href={profile.linkedin}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
+                    className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
                   >
+                    <LinkedInMark className="size-4" />
                     LinkedIn
                   </a>
                   <a
                     href={`tel:${profile.phoneRaw}`}
-                    className="rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
+                    className="inline-flex items-center gap-2 rounded-lg border border-line px-4 py-2 text-muted transition-colors hover:border-accent/50 hover:text-accent-ink"
                   >
+                    <PhoneMark className="size-4" />
                     Call
                   </a>
                 </div>
               </div>
             </Reveal>
-            <Reveal delay={0.05}>
+            <Reveal delay={0.05} className="md:mt-[168px]">
               <ContactForm />
             </Reveal>
           </div>
