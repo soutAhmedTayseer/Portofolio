@@ -429,7 +429,7 @@ export const caseStudy: Record<
   "champion-codex": {
     architecture:
       "MVVM over a connectivity-aware repository. Retrofit fetches the Riot roster, Room persists it, and a single Flow exposes whichever source is available. Compose screens observe that Flow, so going offline changes nothing above the repository.",
-    videos: [{ title: "App Walkthrough", url: "" }],
+    videos: [{ title: "App Walkthrough", youtube: "bWE_TLRgduY", ratio: PHONE }],
     liveDemos: [{ title: "Champion Codex — Android", url: "" }],
   },
   preperroni: {
