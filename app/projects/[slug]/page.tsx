@@ -37,6 +37,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   const extra = caseStudy[slug] ?? {};
   const showDemo = hasDemo(extra);
+  // Desktop apps demo in a landscape laptop frame, which wants a wider column
+  // than the phone bezel does — even the split for these, narrower for the rest.
+  const isDesktop = project.platform.includes("Desktop");
 
   return (
     <main className="min-h-screen px-6 py-16">
@@ -96,7 +99,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* left column */}
-          <div className="flex min-w-0 flex-col gap-10 lg:col-span-7">
+          <div className={`flex min-w-0 flex-col gap-10 ${isDesktop ? "lg:col-span-6" : "lg:col-span-7"}`}>
             <Card title="Overview">
               <p className="text-sm leading-relaxed text-muted">{project.description}</p>
             </Card>
@@ -137,14 +140,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
 
           {/* right column — demo */}
-          <div className="flex min-w-0 flex-col items-center lg:col-span-5">
+          <div className={`flex min-w-0 flex-col items-center ${isDesktop ? "lg:col-span-6" : "lg:col-span-5"}`}>
             {showDemo && (
               <DemoViewport
                 videos={extra.videos}
                 liveDemos={extra.liveDemos}
                 apk={extra.apk}
                 title={project.title}
-                desktop={project.platform.includes("Desktop")}
+                desktop={isDesktop}
               />
             )}
 

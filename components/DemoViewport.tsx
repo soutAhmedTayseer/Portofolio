@@ -71,7 +71,7 @@ export default function DemoViewport({
         {active === "video" ? "Video walkthrough playback" : "Live emulator viewport"}
       </h3>
 
-      <div className={`relative mx-auto w-full ${desktop ? "max-w-[620px]" : "max-w-[330px]"}`}>
+      <div className={`relative mx-auto w-full ${desktop ? "max-w-[760px]" : "max-w-[330px]"}`}>
           {/* The frame takes the recording's own aspect ratio, so the footage
               fills the screen like a running device instead of letterboxing. */}
           <div
