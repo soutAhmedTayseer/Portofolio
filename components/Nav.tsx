@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/site";
 import ThemeToggle from "./ThemeToggle";
 import { BrandLockup } from "./Brandmark";
@@ -18,18 +18,50 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [active, setActive] = useState("#education");
+  const bar = useRef<HTMLDivElement>(null);
 
+  /*
+   * Scroll work is kept off the event itself: reading `scrollHeight` forces a
+   * reflow, so it's measured once and refreshed on resize instead of on every
+   * one of the ~100 scroll events a second. The progress bar is written
+   * straight to the DOM as a transform — putting it in state re-rendered the
+   * whole nav on every frame of every scroll.
+   */
   useEffect(() => {
-    const onScroll = () => {
-      const max = document.body.scrollHeight - window.innerHeight;
-      setScrolled(window.scrollY > 12);
-      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
+    let max = 0;
+    let ticking = false;
+
+    const measure = () => {
+      max = document.documentElement.scrollHeight - window.innerHeight;
     };
-    onScroll();
+
+    const apply = () => {
+      ticking = false;
+      const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+      if (bar.current) bar.current.style.transform = `scaleX(${p})`;
+      setScrolled(window.scrollY > 12);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    };
+
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   // highlight the section currently in view
@@ -55,7 +87,8 @@ export default function Nav() {
       }`}
     >
       <div className="absolute inset-x-0 top-0 h-[2px] bg-transparent">
-        <div className="h-full bg-accent transition-[width] duration-150" style={{ width: `${progress}%` }} />
+        {/* scaled, not width-animated — width triggers layout, transform doesn't */}
+        <div ref={bar} className="h-full w-full origin-left bg-accent" style={{ transform: "scaleX(0)" }} />
       </div>
 
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">

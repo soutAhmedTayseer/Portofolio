@@ -14,6 +14,9 @@ export default function CircuitField() {
     const canvas = ref.current;
     if (!canvas) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Phones and low-core machines get the static background instead — a
+    // full-screen canvas loop is the wrong thing to spend their frame budget on.
+    if (window.innerWidth < 768 || (navigator.hardwareConcurrency ?? 8) <= 4) return;
 
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
@@ -112,10 +115,11 @@ export default function CircuitField() {
       ctx.globalAlpha = 1;
     };
 
+    // The canvas is `fixed inset-0`, so viewport coords are already canvas
+    // coords — measuring it here forced a layout on every mouse move.
     const onPointer = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
     };
     const onLeave = () => {
       pointer.x = -9999;

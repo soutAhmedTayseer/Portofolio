@@ -119,7 +119,7 @@ export default function Home() {
         <ExperienceSection />
 
         {/* Work */}
-        <section id="work" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+        <section id="work" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <CenterTitle
@@ -133,7 +133,7 @@ export default function Home() {
         </section>
 
         {/* About */}
-        <section id="about" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+        <section id="about" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[300px_1fr]">
             {/* flex column so the photo grows to the height of the text beside
                 it and the credentials land level with the pillar cards */}
@@ -217,7 +217,7 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section id="skills" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+        <section id="skills" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <CenterTitle eyebrow="Technical stack" title="What I work with" />
@@ -227,7 +227,7 @@ export default function Home() {
         </section>
 
         {/* Milestones */}
-        <section id="milestones" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+        <section id="milestones" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto max-w-6xl">
             <Reveal>
               <CenterTitle
@@ -294,7 +294,7 @@ export default function Home() {
         </section>
 
         {/* Languages */}
-        <section id="languages" className="border-t border-line px-5 py-16 sm:px-6 sm:py-20">
+        <section id="languages" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <CenterTitle eyebrow="Languages" title="How I communicate" />
@@ -326,7 +326,7 @@ export default function Home() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="border-t border-line px-5 py-16 sm:px-6 sm:py-24">
+        <section id="contact" className="defer-paint border-t border-line px-5 py-16 sm:px-6 sm:py-24">
           <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
             <Reveal>
               <SectionTitle

@@ -163,51 +163,66 @@ h3 {
   pointer-events: none;
 }
 
+/*
+  The soft edge is a radial gradient, not `filter: blur()`. A blurred layer has
+  to be re-rasterised whenever it is transformed, so the old scale() keyframes
+  meant re-blurring three ~480px layers every frame, forever — the single
+  biggest source of scroll jank on the page. A gradient rasterises once and the
+  keyframes below only translate, which the compositor handles for free.
+*/
 .aurora span {
   position: absolute;
   display: block;
-  width: 34vw;
-  height: 34vw;
-  min-width: 260px;
-  min-height: 260px;
-  max-width: 480px;
-  max-height: 480px;
+  width: 44vw;
+  height: 44vw;
+  min-width: 320px;
+  min-height: 320px;
+  max-width: 620px;
+  max-height: 620px;
   border-radius: 50%;
-  filter: blur(48px);
   will-change: transform;
-  transform: translateZ(0);
 }
 
 .aurora span:nth-child(1) {
-  background: var(--blob-a);
-  top: -12%;
-  left: -8%;
+  background: radial-gradient(closest-side, var(--blob-a), transparent);
+  top: -14%;
+  left: -10%;
   animation: drift-a 22s ease-in-out infinite;
 }
 .aurora span:nth-child(2) {
-  background: var(--blob-b);
-  top: 30%;
-  right: -12%;
+  background: radial-gradient(closest-side, var(--blob-b), transparent);
+  top: 28%;
+  right: -14%;
   animation: drift-b 27s ease-in-out infinite;
 }
 .aurora span:nth-child(3) {
-  background: var(--blob-c);
-  bottom: -18%;
-  left: 25%;
+  background: radial-gradient(closest-side, var(--blob-c), transparent);
+  bottom: -20%;
+  left: 22%;
   animation: drift-c 31s ease-in-out infinite;
 }
 
 @keyframes drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(8vw, 6vh, 0) scale(1.12); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(8vw, 6vh, 0); }
 }
 @keyframes drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
-  50% { transform: translate3d(-7vw, -5vh, 0) scale(0.92); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-7vw, -5vh, 0); }
 }
 @keyframes drift-c {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
-  50% { transform: translate3d(5vw, -7vh, 0) scale(1.15); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(5vw, -7vh, 0); }
+}
+
+/*
+  Long page — let the browser skip layout/paint for sections that are nowhere
+  near the viewport. `auto` on the intrinsic size means the real height is
+  remembered after the first render, so the scrollbar doesn't jump.
+*/
+.defer-paint {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 .grid-lines {

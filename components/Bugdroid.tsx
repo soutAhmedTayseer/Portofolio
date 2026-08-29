@@ -25,16 +25,43 @@ export default function Bugdroid() {
   const smoothY = useSpring(y, { stiffness: 60, damping: 18, mass: 0.6 });
   const lastSection = useRef("top");
 
-  // ride the scroll: the mascot flies down the page as you read
+  // Ride the scroll: the mascot flies down the page as you read. `scrollHeight`
+  // is measured on resize rather than per scroll event — reading it inside the
+  // handler forced a reflow on every frame of every scroll.
   useEffect(() => {
-    const onScroll = () => {
-      const max = document.body.scrollHeight - window.innerHeight;
-      const p = max > 0 ? window.scrollY / max : 0;
-      y.set(p * (window.innerHeight - 320));
+    let max = 0;
+    let travel = 0;
+    let ticking = false;
+
+    const measure = () => {
+      max = document.documentElement.scrollHeight - window.innerHeight;
+      travel = window.innerHeight - 320;
     };
-    onScroll();
+
+    const apply = () => {
+      ticking = false;
+      y.set((max > 0 ? window.scrollY / max : 0) * travel);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    };
+
+    const onResize = () => {
+      measure();
+      onScroll();
+    };
+
+    measure();
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
   }, [y]);
 
   // pick up the section in view
